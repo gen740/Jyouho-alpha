@@ -18,7 +18,7 @@ class body:
 
 
 class TBP:
-    def __init__(self, body1, body2, body3, dt=0.001):
+    def __init__(self, body1, body2, body3, dt=0.01):
         self.mass = np.array([body1.mass, body2.mass, body3.mass])
         self.dt = dt
         self.body1 = body1
@@ -67,14 +67,18 @@ class TBP:
         self.fig.show()
 
 
+counter = 0
+
 def calc_TBP(arg):
+    global counter
+    counter = counter + 1
     #print(arg[12])
     body1 = body(arg[0:2], arg[6:8], arg[12])
     body2 = body(arg[2:4], arg[8:10], arg[13])
     body3 = body(arg[4:6], arg[10:12], arg[14])
     TBP_Prime = TBP(body1, body2, body3)
     TBP_Prime.t_(arg[15])
-    print("#")
+    print(counter)
     return np.array([[body1.pos(), body2.pos(), body3.pos()], [body1.vel(), body2.vel(), body3.vel()]]).flatten()
 
 def random_default():

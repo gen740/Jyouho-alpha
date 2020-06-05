@@ -1,15 +1,17 @@
 from TB_problem import *
 import platform
-if platform.system() == "Darwin": #google colabo でやるか自分のPCでやっているかの判定
- import os
- os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
+
+if platform.system() == "Darwin":  # google colabo でやるか自分のPCでやっているかの判定
+    import os
+
+    os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
 import keras
 from keras.layers import Input, Dense, Dropout, Activation, Flatten, BatchNormalization, GlobalAveragePooling2D
 from keras.layers import Conv2D, MaxPooling2D
 from keras.utils import to_categorical
 import matplotlib.pyplot as plt
 
-x_test, y_test = np.load("/Users/fujimotogen/Documents/GitHub/Jyouho-alpha/最終課題/x_test.npy"),\
+x_test, y_test = np.load("/Users/fujimotogen/Documents/GitHub/Jyouho-alpha/最終課題/x_test.npy"), \
                  np.load("/Users/fujimotogen/Documents/GitHub/Jyouho-alpha/最終課題/y_test.npy")
 
 inputs = Input((16,))
@@ -35,7 +37,7 @@ keras.utils.plot_model(model,
                        show_layer_names=True)
 
 epochs = 10
-history = model.fit(x_test, y_test, batch_size=1 ,epochs=epochs, verbose=1)
+history = model.fit(x_test, y_test, batch_size=1, epochs=epochs, verbose=1)
 
 test_scores = model.evaluate(x_test, y_test, verbose=2)
 print("テスト損失:", test_scores[0])
@@ -57,4 +59,3 @@ plt.plot(range(epochs), val_acc, "r", label="validate")
 plt.legend()
 plt.title("accuracy")
 plt.show()
-
