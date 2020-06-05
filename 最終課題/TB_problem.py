@@ -58,6 +58,29 @@ class TBP:
         for i in range(repeat):
             self.dx()
 
+    def show(self):
+        fig, ax = plt.subplots()
+        ax.plot(body1.position[:, 0], body1.position[:, 1], 'k-')
+        ax.plot(body2.position[:, 0], body2.position[:, 1], 'k-')
+        ax.plot(body3.position[:, 0], body3.position[:, 1], 'k-')
+        fig.savefig("/Users/fujimotogen/Desktop/outuput/fig.png")
+        fig.show()
+
+
+def calc_TBP(default_positions, default_velocities, mass, t):
+    body1 = body(default_positions[0], mass[0], default_velocities[0])
+    body2 = body(default_positions[1], mass[1], default_velocities[1])
+    body3 = body(default_positions[2], mass[2], default_velocities[2])
+    TBP_Prime = TBP(body1, body2, body3)
+    TBP_Prime.t_(t)
+    TBP_Prime.show()
+    return [[body1.pos(), body2.pos(), body3.pos()], [body1.vel(), body2.vel(), body3.vel()]]
+
+def random_default():
+    return [[(np.random.random(size=(3, 2))-0.5)*4],
+            [(np.random.random(size=(3, 2))-0.5)*4],
+            [(np.random.random(size=(3))-0.5)*4],
+            np.random.random()*3]
 
 if "__main__" == __name__:
     body1 = body([0, 0], 6)
@@ -66,11 +89,6 @@ if "__main__" == __name__:
     TBP1 = TBP(body1=body1, body2=body2, body3=body3)
 
 
-    TBP1.t_(2)
-    print(body1.position[:, 0])
-    fig, ax = plt.subplots()
+    print(random_default())
+    print(calc_TBP(random_default()[0][0], random_default()[1][0], random_default()[2][0], random_default()[3]))
 
-    ax.plot(body1.position[:, 0], body1.position[:, 1], 'k-')
-    ax.plot(body2.position[:, 0], body2.position[:, 1], 'k-')
-    ax.plot(body3.position[:, 0], body3.position[:, 1], 'k-')
-    fig.show()
