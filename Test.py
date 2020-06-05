@@ -12,30 +12,12 @@ from keras.utils import to_categorical
 import matplotlib.pyplot as plt
 
 
-inputs = Input((32, 32, 3))
-x = Conv2D(100, (3, 3), padding='same', activation='relu')(inputs)
-x = Conv2D(100, (2, 2), padding='same', activation='relu')(x)
-x = MaxPooling2D(2, 2)(x)
-x = Dropout(0.12)(x)
-x = BatchNormalization()(x)
-
-x = Conv2D(450, (3, 3), padding='same', activation='relu')(x)
-x = Conv2D(450, (2, 2), padding='same', activation='relu')(x)
-x = MaxPooling2D(2, 2)(x)
-x = Dropout(0.12)(x)
-x = BatchNormalization()(x)
-
-x = Conv2D(900, (2, 2), padding='same', activation='relu')(x)
-x = Conv2D(900, (2, 2), padding='same', activation='relu')(x)
-x = Dropout(0.12)(x)
-x = Flatten()(x)
-
-x = BatchNormalization()(x)
+inputs = Input((16))
 x = Dense(1200, activation='relu')(x)
 x = Dropout(0.4)(x)
 x = Dense(1200, activation='relu')(x)
 x = Dropout(0.4)(x)
-output = Dense(10, activation='softmax')(x)
+output = Dense(12, activation='softmax')(x)
 
 model = keras.Model(inputs, output)
 model.compile(

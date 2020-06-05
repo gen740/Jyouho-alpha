@@ -5,9 +5,7 @@ G = 1  # 6.674 * 10 ** (-11) todo
 
 
 class body:
-    def __init__(self, default_position, mass, default_vel=None):
-        if default_vel is None:
-            default_vel = [0.0 for i in default_position]
+    def __init__(self, default_position,  default_vel, mass):
         self.velocity = np.array([default_vel])
         self.position = np.array([default_position])
         self.mass = mass
@@ -33,12 +31,13 @@ class TBP:
                           self.body2.pos() - self.body3.pos(),
                           self.body3.pos() - self.body1.pos()])
 
-        self.d = np.array(np.linalg.norm([self.r[0], self.r[1], self.r[2]], axis=1))
 
+        self.d = np.array(np.linalg.norm([self.r[0], self.r[1], self.r[2]], axis=1))
         self.abs_r = self.r / np.array([[self.d[i], self.d[i]] for i in range(3)])
 
         self.abs_F = -G*np.array([self.mass[0]*self.mass[1], self.mass[1]*self.mass[2], self.mass[2]*self.mass[0]])\
-                 /self.d
+                        /self.d
+
 
         self.F_vec = np.array([[self.abs_F[i], self.abs_F[i]] for i in range(3)]) * self.abs_r
         self.F = self.F_vec - np.roll(self.F_vec, 2)
@@ -54,42 +53,36 @@ class TBP:
             i.velocity = np.append(i.velocity, np.array([i.vel() + self.a[self.bodies.index(i)] * self.dt]), axis=0)
 
     def t_(self, t):
+        t = t*10
         repeat = int(t/self.dt)
         for i in range(repeat):
             self.dx()
 
     def show(self):
-        fig, ax = plt.subplots()
-        ax.plot(body1.position[:, 0], body1.position[:, 1], 'k-')
-        ax.plot(body2.position[:, 0], body2.position[:, 1], 'k-')
-        ax.plot(body3.position[:, 0], body3.position[:, 1], 'k-')
-        fig.savefig("/Users/fujimotogen/Desktop/outuput/fig.png")
-        fig.show()
+        self.fig, self.ax = plt.subplots()
+        self.ax.plot(self.body1.position[:, 0], self.body1.position[:, 1], 'k-')
+        self.ax.plot(self.body2.position[:, 0], self.body2.position[:, 1], 'k-')
+        self.ax.plot(self.body3.position[:, 0], self.body3.position[:, 1], 'k-')
+        self.fig.savefig("/Users/fujimotogen/Desktop/outuput/fig.png")
+        self.fig.show()
 
 
 def calc_TBP(arg):
-    arg = arg.reshape()
-    body1 = body(default_positions[0], mass[0], default_velocities[0])
-    body2 = body(default_positions[1], mass[1], default_velocities[1])
-    body3 = body(default_positions[2], mass[2], default_velocities[2])
+    #print(arg[12])
+    body1 = body(arg[0:2], arg[6:8], arg[12])
+    body2 = body(arg[2:4], arg[8:10], arg[13])
+    body3 = body(arg[4:6], arg[10:12], arg[14])
     TBP_Prime = TBP(body1, body2, body3)
-    TBP_Prime.t_(t)
+    TBP_Prime.t_(arg[15])
     TBP_Prime.show()
-    return [[body1.pos(), body2.pos(), body3.pos()], [body1.vel(), body2.vel(), body3.vel()]]
+    return np.array([[body1.pos(), body2.pos(), body3.pos()], [body1.vel(), body2.vel(), body3.vel()]]).flatten()
 
 def random_default():
-    return [[(np.random.random(size=(3, 2))-0.5)*4],
-            [(np.random.random(size=(3, 2))-0.5)*4],
-            [(np.random.random(size=(3))-0.5)*4],
-            np.random.random()*3]
+    return np.append((np.random.random(size=(15))-0.5)*2, np.random.random())
 
 if "__main__" == __name__:
-    body1 = body([0, 0], 6)
-    body2 = body([2, 0], 2)
-    body3 = body([0, 1], 2)
-    TBP1 = TBP(body1=body1, body2=body2, body3=body3)
 
 
     print(random_default())
-    print(calc_TBP(random_default()[0][0], random_default()[1][0], random_default()[2][0], random_default()[3]))
+    print(calc_TBP(random_default()))
 
