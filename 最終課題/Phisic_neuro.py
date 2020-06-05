@@ -4,9 +4,6 @@ if platform.system() == "Darwin": #google colabo でやるか自分のPCでや�
  import os
  os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
 import keras
-from keras.datasets import cifar10
-from keras.preprocessing.image import ImageDataGenerator
-from keras.models import Sequential
 from keras.layers import Input, Dense, Dropout, Activation, Flatten, BatchNormalization, GlobalAveragePooling2D
 from keras.layers import Conv2D, MaxPooling2D
 from keras.utils import to_categorical
@@ -32,9 +29,7 @@ keras.utils.plot_model(model,
                        show_layer_names=True)
 
 epochs = 100
-history = model.fit_generator(datagen.flow(x_train_train, y_train_train, batch_size=50), epochs=epochs, verbose=1,
-                              validation_data=(x_train_val, y_train_val)
-                              )
+history = model.fit(np.array([[random_default()] for i in range(100)]), np.array([[calc_TBP(random_default())] for i in range(100)]),batch_size=5 ,epochs=epochs, verbose=1)
 
 test_scores = model.evaluate(x_test, y_test, verbose=2)
 print("テスト損失:", test_scores[0])
