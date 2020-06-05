@@ -67,7 +67,8 @@ class TBP:
         fig.show()
 
 
-def calc_TBP(default_positions, default_velocities, mass, t):
+def calc_TBP(arg):
+    arg = arg.reshape()
     body1 = body(default_positions[0], mass[0], default_velocities[0])
     body2 = body(default_positions[1], mass[1], default_velocities[1])
     body3 = body(default_positions[2], mass[2], default_velocities[2])
