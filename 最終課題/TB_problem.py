@@ -1,11 +1,17 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+G = 6.674 * 10 ** (-11)
+
+
 
 class body:
-    def __init__(self, default_position, default_vel=[0.0, 0.0]):
+    def __init__(self, default_position, mass, default_vel=None):
+        if default_vel is None:
+            default_vel = [0.0 for i in default_position]
         self.vel = [default_vel]
         self.position = [default_position]
+        self.mass = mass
 
     def vel(self):
         return self.vel[-1]
@@ -31,6 +37,7 @@ class TBP:
         self.d2 = abs(np.linalg.norm(self.r2))
         self.d3 = abs(np.linalg.norm(self.r3))
 
+        self.F =
 
 
 if "__main__" == __name__:
