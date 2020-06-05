@@ -33,9 +33,9 @@ class TBP:
         self.r2 = self.body2[-1] - self.body3[-1]
         self.r3 = self.body3[-1] - self.body1[-1]
 
-        self.d1 = abs(np.linalg.norm(self.r1))
-        self.d2 = abs(np.linalg.norm(self.r2))
-        self.d3 = abs(np.linalg.norm(self.r3))
+        self.d1 = np.linalg.norm(self.r1)
+        self.d2 = np.linalg.norm(self.r2)
+        self.d3 = np.linalg.norm(self.r3)
 
         self.F =
 
