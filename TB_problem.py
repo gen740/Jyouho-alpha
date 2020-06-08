@@ -63,11 +63,12 @@ class TBP:
         self.ax.plot(self.body1.position[:, 0], self.body1.position[:, 1], 'k-')
         self.ax.plot(self.body2.position[:, 0], self.body2.position[:, 1], 'k-')
         self.ax.plot(self.body3.position[:, 0], self.body3.position[:, 1], 'k-')
-        self.fig.savefig("/Users/fujimotogen/Desktop/outuput/fig.png")
+        self.fig.savefig("/Users/fujimotogen/Desktop/outuput/fig5.png")
         self.fig.show()
 
 
 counter = 0
+
 
 def calc_TBP(arg):
     global counter
@@ -78,15 +79,19 @@ def calc_TBP(arg):
     body3 = body(arg[4:6], arg[10:12], arg[14])
     TBP_Prime = TBP(body1, body2, body3)
     TBP_Prime.t_(arg[15])
+    TBP_Prime.show()
     print(counter)
     return np.array([[body1.pos(), body2.pos(), body3.pos()], [body1.vel(), body2.vel(), body3.vel()]]).flatten()
 
+
 def random_default():
-    return np.append((np.random.random(size=(15))-0.5)*2, np.random.random())
+    return np.append((np.random.random(size=(15))-0.5)*2, 5)
+
 
 if "__main__" == __name__:
 
 
     print(random_default())
     print(calc_TBP(random_default()))
+
 
