@@ -5,9 +5,9 @@ G = 1  # 6.674 * 10 ** (-11) todo
 
 
 
-    """
+"""
     オブジェクトの定義、返り値は物体の位置、速度のリスト
-    """
+"""
 class body:
     def __init__(self, default_position, default_vel, mass):
         self.velocity = np.array([default_vel])
@@ -21,9 +21,9 @@ class body:
         return np.array(self.position[-1])
 
 
-    """
+"""
     定義したオブジェクトクラスを用い三体問題を計算する。dtは積分間隔
-    """
+"""
 class TBP:
     def __init__(self, body1, body2, body3, dt=0.01):
         self.mass = np.array([body1.mass, body2.mass, body3.mass])
@@ -33,20 +33,23 @@ class TBP:
         self.body3 = body3
 
     def calc_a(self):
+        # 物体間の距離ベクトル
         self.r = np.array([self.body1.pos() - self.body2.pos(),
                            self.body2.pos() - self.body3.pos(),
                            self.body3.pos() - self.body1.pos()])
-
+        
+        # 物体間の距離
         self.d = np.array(np.linalg.norm([self.r[0],
                                           self.r[1],
                                           self.r[2]], axis=1))
         
+        # 物体間の距離ベクトルの方向ベクトル
         self.abs_r = self.r / np.array([[self.d[i], 
                                          self.d[i]] for i in range(3)])
 
         self.abs_F = -G * np.array([self.mass[0] * self.mass[1],
                                     self.mass[1] * self.mass[2],
-                                    self.mass[2] * self.mass[0]]) / self.d
+                                    self.mass[2] * self.mass[0]]) / self.d ** 2
 
         self.F_vec = np.array([[self.abs_F[i], 
                                 self.abs_F[i]] for i in range(3)]) *  self.abs_r
