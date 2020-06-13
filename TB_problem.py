@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-G = 0.5  # 6.674 * 10 ** (-11) todo
+G = 10  # 6.674 * 10 ** (-11) todo
 
 
 
@@ -25,7 +25,7 @@ class body:
     定義したオブジェクトクラスを用い三体問題を計算する。dtは積分間隔
 """
 class TBP:
-    def __init__(self, body1, body2, body3, dt=0.001):
+    def __init__(self, body1, body2, body3, dt=0.01):
         self.mass = np.array([body1.mass, body2.mass, body3.mass])
         self.dt = dt
         self.body1 = body1
@@ -78,28 +78,28 @@ class TBP:
         for i in range(repeat):
             self.dx()
 
-    def show(self):
+    def show(self, to_file):
         self.fig, self.ax = plt.subplots()
         self.ax.plot(self.body1.position[:, 0], self.body1.position[:, 1], 'k-')
         self.ax.plot(self.body2.position[:, 0], self.body2.position[:, 1], 'k-')
         self.ax.plot(self.body3.position[:, 0], self.body3.position[:, 1], 'k-')
-        self.fig.savefig("/Users/fujimotogen/Desktop/outuput/fig5.png")
+        self.fig.savefig(to_file)
         self.fig.show()
 
 
 counter = 0
 
 
-def calc_TBP(arg):
+def calc_TBP(arg, to_file):
     global counter
     counter = counter + 1
     # print(arg[12])
-    body1 = body(arg[0:2], arg[6:8], arg[12])
-    body2 = body(arg[2:4], arg[8:10], arg[13])
-    body3 = body(arg[4:6], arg[10:12], arg[14])
+    body1 = body(arg[0:2], arg[2:4], arg[4])
+    body2 = body(arg[5:7], arg[7:9], arg[9])
+    body3 = body(arg[10:12], arg[12:14], arg[14])
     TBP_Prime = TBP(body1, body2, body3)
     TBP_Prime.t_(arg[15])
-    TBP_Prime.show()
+    TBP_Prime.show(to_file)
     print(counter)
     return np.array([[body1.pos(), 
                       body2.pos(),
@@ -109,9 +109,25 @@ def calc_TBP(arg):
                       body3.vel()]]).flatten()
 
 def random_default():
-    return np.append((np.random.random(size=(15)) - 0.5) * 2, 1)
+    rand_mass = [np.random.rand()/2 + 0.5 for i in range(3)]
+    rand_position1 = np.random.rand(2)
+    rand_position2 = np.random.rand(2)
+    rand_position3 = -(rand_position1 * rand_mass[0] +\
+                       rand_position2 * rand_mass[1]) / rand_mass[2]
+    rand_velocity1 = np.random.rand(2) * 0.0
+    rand_velocity2 = np.random.rand(2) * 0.0
+    rand_velocity3 = -(rand_velocity1 * rand_mass[0] +\
+                       rand_velocity2 * rand_mass[1]) / rand_mass[2]
 
+    return np.array([rand_position1[0], rand_position1[1],
+                     rand_velocity1[0], rand_velocity1[1], rand_mass[0],
+                     rand_position2[0], rand_position1[1],
+                     rand_velocity2[0], rand_velocity1[1], rand_mass[1],
+                     rand_position3[0], rand_position1[1],
+                     rand_velocity3[0], rand_velocity1[1], rand_mass[2], 0.1])
 
 if "__main__" == __name__:
-    print(random_default())
-    print(calc_TBP(random_default()))
+    for i in range(1):
+        print(random_default())
+        print(calc_TBP(random_default(),
+              f"/Users/fujimotogen/Desktop/outuput/fig{i+1}.png"))
