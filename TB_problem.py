@@ -4,6 +4,10 @@ import matplotlib.pyplot as plt
 G = 1  # 6.674 * 10 ** (-11) todo
 
 
+
+    """
+    オブジェクトの定義、返り値は物体の位置、速度のリスト
+    """
 class body:
     def __init__(self, default_position, default_vel, mass):
         self.velocity = np.array([default_vel])
@@ -17,6 +21,9 @@ class body:
         return np.array(self.position[-1])
 
 
+    """
+    定義したオブジェクトクラスを用い三体問題を計算する。dtは積分間隔
+    """
 class TBP:
     def __init__(self, body1, body2, body3, dt=0.01):
         self.mass = np.array([body1.mass, body2.mass, body3.mass])
@@ -30,16 +37,23 @@ class TBP:
                            self.body2.pos() - self.body3.pos(),
                            self.body3.pos() - self.body1.pos()])
 
-        self.d = np.array(np.linalg.norm([self.r[0], self.r[1], self.r[2]], axis=1))
-        self.abs_r = self.r / np.array([[self.d[i], self.d[i]] for i in range(3)])
+        self.d = np.array(np.linalg.norm([self.r[0],
+                                          self.r[1],
+                                          self.r[2]], axis=1))
+        
+        self.abs_r = self.r / np.array([[self.d[i], 
+                                         self.d[i]] for i in range(3)])
 
-        self.abs_F = -G * np.array(
-            [self.mass[0] * self.mass[1], self.mass[1] * self.mass[2], self.mass[2] * self.mass[0]]) \
-                     / self.d
+        self.abs_F = -G * np.array([self.mass[0] * self.mass[1],
+                                    self.mass[1] * self.mass[2],
+                                    self.mass[2] * self.mass[0]]) / self.d
 
-        self.F_vec = np.array([[self.abs_F[i], self.abs_F[i]] for i in range(3)]) * self.abs_r
+        self.F_vec = np.array([[self.abs_F[i], 
+                                self.abs_F[i]] for i in range(3)]) *  self.abs_r
+
         self.F = self.F_vec - np.roll(self.F_vec, 2)
-        self.a = self.F / np.array([[self.mass[i], self.mass[i]] for i in range(3)])
+        self.a = self.F / np.array([[self.mass[i],
+                                     self.mass[i]] for i in range(3)])
 
         return self.a
 
@@ -47,8 +61,13 @@ class TBP:
         self.calc_a()
         self.bodies = [self.body1, self.body2, self.body3]
         for i in self.bodies:
-            i.position = np.append(i.position, np.array([i.pos() + i.vel() * self.dt]), axis=0)
-            i.velocity = np.append(i.velocity, np.array([i.vel() + self.a[self.bodies.index(i)] * self.dt]), axis=0)
+            i.position = np.append(i.position,
+                                   np.array([i.pos() + i.vel() * self.dt]),
+                                   axis=0)
+
+            i.velocity = np.append(i.velocity,
+                np.array([i.vel() + self.a[self.bodies.index(i)] * self.dt]),
+                axis=0)
 
     def t_(self, t):
         t = t * 10
@@ -79,8 +98,12 @@ def calc_TBP(arg):
     TBP_Prime.t_(arg[15])
     TBP_Prime.show()
     print(counter)
-    return np.array([[body1.pos(), body2.pos(), body3.pos()], [body1.vel(), body2.vel(), body3.vel()]]).flatten()
-
+    return np.array([[body1.pos(), 
+                      body2.pos(),
+                      body3.pos()],
+                     [body1.vel(),
+                      body2.vel(),
+                      body3.vel()]]).flatten()
 
 def random_default():
     return np.append((np.random.random(size=(15)) - 0.5) * 2, 5)
