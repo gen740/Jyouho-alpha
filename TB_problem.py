@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-G = 1  # 6.674 * 10 ** (-11) todo
+G = 0.5  # 6.674 * 10 ** (-11) todo
 
 
 
@@ -25,7 +25,7 @@ class body:
     定義したオブジェクトクラスを用い三体問題を計算する。dtは積分間隔
 """
 class TBP:
-    def __init__(self, body1, body2, body3, dt=0.01):
+    def __init__(self, body1, body2, body3, dt=0.001):
         self.mass = np.array([body1.mass, body2.mass, body3.mass])
         self.dt = dt
         self.body1 = body1
@@ -109,7 +109,7 @@ def calc_TBP(arg):
                       body3.vel()]]).flatten()
 
 def random_default():
-    return np.append((np.random.random(size=(15)) - 0.5) * 2, 5)
+    return np.append((np.random.random(size=(15)) - 0.5) * 2, 1)
 
 
 if "__main__" == __name__:
