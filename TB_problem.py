@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-G = 10  # 6.674 * 10 ** (-11) todo
+G = 1  # 6.674 * 10 ** (-11) todo
 
 
 
@@ -25,7 +25,7 @@ class body:
     定義したオブジェクトクラスを用い三体問題を計算する。dtは積分間隔
 """
 class TBP:
-    def __init__(self, body1, body2, body3, dt=0.01):
+    def __init__(self, body1, body2, body3, dt=0.0001):
         self.mass = np.array([body1.mass, body2.mass, body3.mass])
         self.dt = dt
         self.body1 = body1
@@ -33,28 +33,24 @@ class TBP:
         self.body3 = body3
 
     def calc_a(self):
-        # 物体間の距離ベクトル
+        # 物体間の距離ベクトル shape(3, 2)
         self.r = np.array([self.body1.pos() - self.body2.pos(),
                            self.body2.pos() - self.body3.pos(),
                            self.body3.pos() - self.body1.pos()])
         
-        # 物体間の距離
-        self.d = np.array(np.linalg.norm([self.r[0],
+        # 物体間の距離shape(3,)
+        self.abs_r = np.array(np.linalg.norm([self.r[0],
                                           self.r[1],
                                           self.r[2]], axis=1))
         
-        # 物体間の距離ベクトルの方向ベクトル
-        self.abs_r = self.r / np.array([[self.d[i], 
-                                         self.d[i]] for i in range(3)])
 
-        self.abs_F = -G * np.array([self.mass[0] * self.mass[1],
-                                    self.mass[1] * self.mass[2],
-                                    self.mass[2] * self.mass[0]]) / self.d ** 2
+        self.F_vec = -G * np.tile((np.array([self.mass[0] * self.mass[1],
+                           self.mass[1] * self.mass[2],
+                           self.mass[2] * self.mass[0]]) / 
+                           self.abs_r ** 2).reshape(3,1),2) * self.r 
+                                        
 
-        self.F_vec = np.array([[self.abs_F[i], 
-                                self.abs_F[i]] for i in range(3)]) *  self.abs_r
-
-        self.F = self.F_vec - np.roll(self.F_vec, 2)
+        self.F = self.F_vec - np.roll(self.F_vec, -2)
         self.a = self.F / np.array([[self.mass[i],
                                      self.mass[i]] for i in range(3)])
 
@@ -80,6 +76,12 @@ class TBP:
 
     def show(self, to_file):
         self.fig, self.ax = plt.subplots()
+
+        #self.ax.set_ylim(-1, 1)
+        #self.ax.set_xlim(-1, 1)
+        print(self.body1.position)
+        print(self.body2.position)
+        print(self.body3.position)
         self.ax.plot(self.body1.position[:, 0], self.body1.position[:, 1], 'k-')
         self.ax.plot(self.body2.position[:, 0], self.body2.position[:, 1], 'k-')
         self.ax.plot(self.body3.position[:, 0], self.body3.position[:, 1], 'k-')
@@ -110,21 +112,19 @@ def calc_TBP(arg, to_file):
 
 def random_default():
     rand_mass = [np.random.rand()/2 + 0.5 for i in range(3)]
-    rand_position1 = np.random.rand(2)
-    rand_position2 = np.random.rand(2)
-    rand_position3 = -(rand_position1 * rand_mass[0] +\
-                       rand_position2 * rand_mass[1]) / rand_mass[2]
-    rand_velocity1 = np.random.rand(2) * 0.0
-    rand_velocity2 = np.random.rand(2) * 0.0
-    rand_velocity3 = -(rand_velocity1 * rand_mass[0] +\
-                       rand_velocity2 * rand_mass[1]) / rand_mass[2]
+    rand_position1 = np.random.rand(2)*2 - 1.
+    rand_position2 = np.random.rand(2)*2 - 1.
+    rand_position3 = np.random.rand(2)*2 - 1. 
+    rand_velocity1 = np.random.rand(2)*2 - 1.
+    rand_velocity2 = np.random.rand(2)*2 - 1.
+    rand_velocity3 = np.random.rand(2)*2 - 1. 
 
     return np.array([rand_position1[0], rand_position1[1],
                      rand_velocity1[0], rand_velocity1[1], rand_mass[0],
-                     rand_position2[0], rand_position1[1],
-                     rand_velocity2[0], rand_velocity1[1], rand_mass[1],
-                     rand_position3[0], rand_position1[1],
-                     rand_velocity3[0], rand_velocity1[1], rand_mass[2], 0.1])
+                     rand_position2[0], rand_position2[1],
+                     rand_velocity2[0], rand_velocity2[1], rand_mass[1],
+                     rand_position3[0], rand_position3[1],
+                     rand_velocity3[0], rand_velocity3[1], 0, 1])
 
 if "__main__" == __name__:
     for i in range(1):
