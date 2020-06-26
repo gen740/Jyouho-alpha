@@ -130,4 +130,4 @@ if "__main__" == __name__:
     for i in range(1):
         print(random_default())
         print(calc_TBP(random_default(),
-              f"/Users/fujimotogen/Desktop/outuput/fig{i+1}.png"))
+            f"/Users/fujimotogen/Desktop/outuput/fig{i+1}.png"))
