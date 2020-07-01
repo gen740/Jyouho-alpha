@@ -50,7 +50,7 @@ class TBP:
         self.F_vec = -G * np.tile((np.array([self.mass[0] * self.mass[1],
                            self.mass[1] * self.mass[2],
                            self.mass[2] * self.mass[0]]) / 
-                           self.abs_r ** 2).reshape(3,1),2) * self.r 
+                           self.abs_r ** 3).reshape(3,1),2) * self.r 
                                         
 
         self.F = self.F_vec - np.roll(self.F_vec, -2)
@@ -154,6 +154,6 @@ def random_default():
                      rand_velocity3[0], rand_velocity3[1], rand_mass[2], 1])
 
 if "__main__" == __name__:
-    for i in range(1):
+    for i in range(5):
         print(random_default())
         print(calc_TBP(random_default(), f"Result/fig{i+1}.png"))
