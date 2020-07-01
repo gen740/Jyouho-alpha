@@ -25,13 +25,16 @@ class body:
     定義したオブジェクトクラスを用い三体問題を計算する。dtは積分間隔
 """
 class TBP:
-    def __init__(self, body1, body2, body3, dt=0.0001):
+    def __init__(self, body1, body2, body3, dt=0.001):
         self.mass = np.array([body1.mass, body2.mass, body3.mass])
         self.dt = dt
         self.body1 = body1
         self.body2 = body2
         self.body3 = body3
 
+    """
+        加速度を計算する。返り値は3×2のベクトル
+    """
     def calc_a(self):
         # 物体間の距離ベクトル shape(3, 2)
         self.r = np.array([self.body1.pos() - self.body2.pos(),
@@ -56,6 +59,9 @@ class TBP:
 
         return self.a
 
+    """
+        dxだけ計算を進める。
+    """
     def dx(self):
         self.calc_a()
         self.bodies = [self.body1, self.body2, self.body3]
@@ -68,12 +74,18 @@ class TBP:
                 np.array([i.vel() + self.a[self.bodies.index(i)] * self.dt]),
                 axis=0)
 
+    """
+    dxを何回も繰り返して求める。
+    """
     def t_(self, t):
         t = t * 10
         repeat = int(t / self.dt)
         for i in range(repeat):
             self.dx()
 
+    """
+    結果を図にして保存する。
+    """
     def show(self, to_file):
         self.fig, self.ax = plt.subplots()
 
@@ -87,6 +99,21 @@ class TBP:
         self.ax.plot(self.body3.position[:, 0], self.body3.position[:, 1], 'k-')
         self.fig.savefig(to_file)
         self.fig.show()
+
+
+    """
+    結果をアニメーションにして保存する。　まだ大丈夫　# todo
+    """
+    def ani_show():
+        pass
+
+    """
+    データを作成して保存する。
+    カスタマイズをどうするかまだ思案中。ただこれが重要
+    """
+    def make_data():
+        pass
+
 
 
 counter = 0
@@ -124,10 +151,9 @@ def random_default():
                      rand_position2[0], rand_position2[1],
                      rand_velocity2[0], rand_velocity2[1], rand_mass[1],
                      rand_position3[0], rand_position3[1],
-                     rand_velocity3[0], rand_velocity3[1], 0, 1])
+                     rand_velocity3[0], rand_velocity3[1], rand_mass[2], 1])
 
 if "__main__" == __name__:
     for i in range(1):
         print(random_default())
-        print(calc_TBP(random_default(),
-            f"/Users/fujimotogen/Desktop/outuput/fig{i+1}.png"))
+        print(calc_TBP(random_default(), f"Result/fig{i+1}.png"))
