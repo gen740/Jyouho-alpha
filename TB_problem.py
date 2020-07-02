@@ -138,7 +138,7 @@ def calc_TBP(arg, to_file):
                       body3.vel()]]).flatten()
 
 def random_default():
-    rand_mass = [np.random.rand()/2 + 0.5 for i in range(3)]
+    rand_mass = [np.random.rand()/10000 + 1 for i in range(3)]
     rand_position1 = np.random.rand(2)*2 - 1.
     rand_position2 = np.random.rand(2)*2 - 1.
     rand_position3 = np.random.rand(2)*2 - 1. 
