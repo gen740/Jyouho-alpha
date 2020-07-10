@@ -1,9 +1,7 @@
 from TB_problem import *
 import platform
-
 if platform.system() == "Darwin":  # google colabo でやるか自分のPCでやっているかの判定
     import os
-
     os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
 import keras
 from keras.layers import Input, Dense, Dropout, Activation, Flatten, BatchNormalization, GlobalAveragePooling2D
