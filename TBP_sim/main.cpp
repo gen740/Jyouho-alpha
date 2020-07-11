@@ -1,4 +1,6 @@
+#include "DataGen.hpp"
 #include "TBP_class.hpp"
+
 #include <array>
 #include <filesystem>
 #include <iostream>
@@ -11,9 +13,9 @@ int main()
 {
     std::fstream file;
     star stars[NUMBER_OF_STAR] = {
-        {1, 0.5, 0.4, 0.0, 0.0, 0.0, 0.0},
-        {1, 0.4, 0.6, 0.0, 0.0, 0.0, 0.0},
-        {1, 0.7, 0.1, 0.0, 0.0, 0.0, 0.0},
+        {1.0, 0.5, 0.4, 0.0, 0.0, 0.0, 0.0},
+        {1.0, 0.4, 0.6, 0.0, 0.0, 0.0, 0.0},
+        {1.0, 0.7, 0.1, 0.0, 0.0, 0.0, 0.0},
     };
 
     TBP test(stars);
@@ -27,10 +29,11 @@ int main()
     for (int i = 0; i < 100000; i++) {
         test.runge();
         if (i % 10 == 0) {
-            std::cout << i << std::endl;
             test.Save();
         }
     }
     test.Show();
+    Random_Generate();
+    std::cout << Rand_0to1();
     return 0;
 }

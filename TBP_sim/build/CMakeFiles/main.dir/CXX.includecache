@@ -13,6 +13,12 @@ array
 -
 cmath
 -
+cstdarg
+-
+cstdlib
+-
+ctime
+-
 filesystem
 -
 fstream
@@ -28,17 +34,5 @@ string
 array
 -
 fstream
--
-
-/Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/main.cpp
-TBP_class.hpp
-/Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/TBP_class.hpp
-array
--
-filesystem
--
-iostream
--
-string
 -
 

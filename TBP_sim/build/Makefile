@@ -143,6 +143,33 @@ main/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
 .PHONY : main/fast
 
+DataGen.o: DataGen.cpp.o
+
+.PHONY : DataGen.o
+
+# target to build an object file
+DataGen.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/DataGen.cpp.o
+.PHONY : DataGen.cpp.o
+
+DataGen.i: DataGen.cpp.i
+
+.PHONY : DataGen.i
+
+# target to preprocess a source file
+DataGen.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/DataGen.cpp.i
+.PHONY : DataGen.cpp.i
+
+DataGen.s: DataGen.cpp.s
+
+.PHONY : DataGen.s
+
+# target to generate assembly for a file
+DataGen.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/DataGen.cpp.s
+.PHONY : DataGen.cpp.s
+
 TBP_class.o: TBP_class.cpp.o
 
 .PHONY : TBP_class.o
@@ -206,6 +233,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... main"
+	@echo "... DataGen.o"
+	@echo "... DataGen.i"
+	@echo "... DataGen.s"
 	@echo "... TBP_class.o"
 	@echo "... TBP_class.i"
 	@echo "... TBP_class.s"

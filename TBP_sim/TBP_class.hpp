@@ -8,9 +8,10 @@ constexpr double G = 1;
 constexpr std::array<double, 4> K = {1, 1 / 2, 1 / 2, 1};
 
 // Class Difinitions
+// Class star
 class star
 {
-public:
+public:  // members
     double m;
     std::array<double, DIM> x;
     std::array<double, DIM> p;
@@ -18,10 +19,16 @@ public:
     std::array<std::array<double, DIM>, 5> kp;
     int flag = 0;
 
-public:
+public:  // constructors
+    star();
+    star(double input, ...);
+    star(bool rand_initialization);
+
+public:  // class functions
     void Show();
 };
 
+// Class TBP for calculate and data-gen
 class TBP
 {
 public:  // members
@@ -31,10 +38,13 @@ public:  // members
 
 public:  // constructor
     TBP(star stars[]);
-    ~TBP();
 
 public:  // class functions
     void runge();
     void Save();
+    void file_open();
+    void file_close();
     void Show();
 };
+
+double Rand_0to1();

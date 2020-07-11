@@ -1,6 +1,10 @@
 #include "TBP_class.hpp"
+
 #include <array>
 #include <cmath>
+#include <cstdarg>
+#include <cstdlib>
+#include <ctime>
 #include <filesystem>
 #include <fstream>
 #include <iomanip>
@@ -8,6 +12,44 @@
 #include <string>
 
 namespace fs = std::filesystem;
+// todo function prototype
+
+double Rand_0to1()
+{
+    static unsigned int seed = (unsigned int)time(NULL);
+    std::srand(seed);
+    seed += 100;
+    return (double)rand() / RAND_MAX;
+}
+
+star::star() {}
+
+star::star(double input, ...)
+{
+    double n[1 + DIM * 2];
+    va_list args;
+    va_start(args, input);
+    for (int i = 0; i < DIM * 2; i++) {
+        n[i] = va_arg(args, double);
+    }
+
+    m = input;
+    for (int i = 0; i < DIM; i++) {
+        x[i] = n[i];
+        p[i] = n[DIM + i];
+    }
+}
+
+star::star(bool rand_initialization)
+{
+    if (rand_initialization == true) {
+        m = Rand_0to1() / 2.0 + 0.5;
+        for (int i = 0; i < DIM; i++) {
+            x[i] = Rand_0to1() - 0.5;
+            p[i] = Rand_0to1() - 0.5;
+        }
+    }
+}
 
 void star::Show()
 {
@@ -31,12 +73,19 @@ TBP::TBP(star stars_input[])
     for (int i = 0; i < NUMBER_OF_STAR; i++) {
         stars[i] = stars_input[i];
         std::ofstream("data/star" + std::to_string(i + 1) + ".csv");
+    }
+    file_open();
+}
+
+void TBP::file_open()
+{
+    for (int i = 0; i < NUMBER_OF_STAR; i++) {
         files[i].open("data/star" + std::to_string(i + 1) + ".csv",
             std::ios::out);
     }
 }
 
-TBP::~TBP()
+void TBP::file_close()
 {
     for (int i = 0; i < NUMBER_OF_STAR; i++) {
         files[i].close();
