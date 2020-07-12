@@ -32,22 +32,26 @@ void Random_Generate(int data_size)
             file << std::flush;
         }
     }
-    std::cout << Rand_0to1() << std::endl;
     file.close();
 }
 
-void Calcdata_for_learning()
+void Calcdata_for_learning(double t, double dt)
 {
-    fs::remove_all(dir);
-    fs::create_directory(dir);
     std::ofstream(dir + "/" + file_2);
     std::fstream file;
-    file.open(dir + "/" + file_2);
+    file.open(dir + "/" + file_1, std::ios::in);
     std::array<double, DATA_DIM> data;
     for (int i = 0; i < SizeOfData; i++) {
         for (int i = 0; i < DATA_DIM; i++) {
             file >> data[i];
         }
+        TBP tbp_for_learn(data);
+        tbp_for_learn.dt = dt;
+        int N = t / dt;
+        for (int k = 0; k < N; k++) {
+            tbp_for_learn.runge();
+        }
+        tbp_for_learn.Save_to_file(dir + "/" + file_2);
     }
     file.close();
 }

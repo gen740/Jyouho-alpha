@@ -11,6 +11,9 @@ namespace fs = std::filesystem;
 
 int main()
 {
+    Random_Generate(100);
+    Calcdata_for_learning(1);
+    /*
     std::fstream file;
     star stars[NUMBER_OF_STAR] = {
         {1.0, 0.5, 0.4, 0.0, 0.0, 0.0, 0.0},
@@ -36,4 +39,5 @@ int main()
     Random_Generate();
     std::cout << Rand_0to1();
     return 0;
+    */
 }

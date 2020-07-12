@@ -22,7 +22,7 @@ public:  // members
     std::array<double, DIM> p;
     std::array<std::array<double, DIM>, 5> kx;
     std::array<std::array<double, DIM>, 5> kp;
-    int flag = 0;
+    int flag = 0;  // todo create flag
 
 public:  // constructors
     star();
@@ -38,16 +38,18 @@ class TBP
 {
 public:  // members
     star stars[NUMBER_OF_STAR];
-    float dt = 0.0001;
+    double dt = 0.0001;
     std::fstream files[NUMBER_OF_STAR];
 
 public:  // constructor
     TBP(star stars[]);
+    TBP(std::array<double, (NUMBER_OF_STAR * (1 + 2 * DIM))> data);
 
 public:  // class functions
     void runge();
     void Save();
     void Save_to_file(std::string to_file);
+    void Save_to_file(std::fstream file);
     void file_open();
     void file_close();
     void Show();

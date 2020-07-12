@@ -84,6 +84,20 @@ TBP::TBP(star stars_input[])
     file_open();
 }
 
+TBP::TBP(std::array<double, (NUMBER_OF_STAR * (1 + 2 * DIM))> data)
+{
+    int num = 1 + 2 * DIM;
+    for (int i = 0; i < NUMBER_OF_STAR; i++) {
+        stars[i].m = data[num * i + 0];
+        stars[i].x[0] = data[num * i + 1];
+        stars[i].x[1] = data[num * i + 2];
+        stars[i].x[2] = data[num * i + 3];
+        stars[i].p[0] = data[num * i + 4];
+        stars[i].p[1] = data[num * i + 5];
+        stars[i].p[2] = data[num * i + 6];
+    }
+}
+
 // Other functions belong to TBP.
 void TBP::file_open()
 {
@@ -185,7 +199,7 @@ void TBP::Save_to_file(std::string to_file = "NULL")
     if (to_file == "NULL") {
         Save();
     } else {
-        std::fstream output_file;
+        static std::fstream output_file;
         output_file.open(to_file, std::ios::out);
         for (int i = 0; i < NUMBER_OF_STAR; i++) {
             output_file << std::fixed;
@@ -202,6 +216,27 @@ void TBP::Save_to_file(std::string to_file = "NULL")
         } else {
             output_file << "\n";
         }
+    }
+    counter++;
+}
+
+void TBP::Save_to_file(std::fstream to_file)
+{
+    static unsigned int counter = 0;
+    for (int i = 0; i < NUMBER_OF_STAR; i++) {
+        to_file << std::fixed;
+        to_file << std::setprecision(8)
+                << stars[i].x[0] << " "
+                << stars[i].x[1] << " "
+                << stars[i].x[2] << " "
+                << stars[i].p[0] << " "
+                << stars[i].p[1] << " "
+                << stars[i].p[2] << " ";
+    }
+    if (counter % 500 == 0) {
+        to_file << std::endl;
+    } else {
+        to_file << "\n";
     }
     counter++;
 }
