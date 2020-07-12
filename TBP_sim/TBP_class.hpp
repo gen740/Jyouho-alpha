@@ -1,11 +1,16 @@
 #pragma once
+
 #include <array>
 #include <fstream>
+#include <string>
 
+// Difinition of the constances
 constexpr int NUMBER_OF_STAR = 3;
 constexpr int DIM = 3;
 constexpr double G = 1;
 constexpr std::array<double, 4> K = {1, 1 / 2, 1 / 2, 1};
+
+double Rand_0to1();
 
 // Class Difinitions
 // Class star
@@ -42,9 +47,8 @@ public:  // constructor
 public:  // class functions
     void runge();
     void Save();
+    void Save_to_file(std::string to_file);
     void file_open();
     void file_close();
     void Show();
 };
-
-double Rand_0to1();

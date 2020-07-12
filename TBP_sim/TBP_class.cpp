@@ -9,19 +9,24 @@
 #include <fstream>
 #include <iomanip>
 #include <iostream>
+#include <random>
 #include <string>
 
 namespace fs = std::filesystem;
 // todo function prototype
 
+// the global functions.
+// the function of create random real
 double Rand_0to1()
 {
-    static unsigned int seed = (unsigned int)time(NULL);
-    std::srand(seed);
-    seed += 100;
-    return (double)rand() / RAND_MAX;
+    static int counter = 0;
+    static std::mt19937 engine(1);  // todo seed
+    std::uniform_real_distribution<> dist(0.0, 1.0);
+    return dist(engine);
 }
 
+// Construntors for star
+// empty constructor for TBP class
 star::star() {}
 
 star::star(double input, ...)
@@ -51,6 +56,7 @@ star::star(bool rand_initialization)
     }
 }
 
+// member function
 void star::Show()
 {
     std::cout << std::fixed;
@@ -66,6 +72,7 @@ void star::Show()
               << p[2] << " \n\n";
 }
 
+// constructor for TBP
 TBP::TBP(star stars_input[])
 {
     fs::remove_all("data");
@@ -77,6 +84,7 @@ TBP::TBP(star stars_input[])
     file_open();
 }
 
+// Other functions belong to TBP.
 void TBP::file_open()
 {
     for (int i = 0; i < NUMBER_OF_STAR; i++) {
@@ -152,6 +160,7 @@ void TBP::runge()
 
 void TBP::Save()
 {
+    static unsigned int counter = 0;
     for (int i = 0; i < NUMBER_OF_STAR; i++) {
         files[i] << std::fixed;
         files[i] << std::setprecision(8)
@@ -160,8 +169,41 @@ void TBP::Save()
                  << stars[i].x[2] << " "
                  << stars[i].p[0] << " "
                  << stars[i].p[1] << " "
-                 << stars[i].p[2] << std::endl;
+                 << stars[i].p[2];
+        if (counter % 500 == 0) {
+            files[i] << std::endl;
+        } else {
+            files[i] << "\n";
+        }
     }
+    counter++;
+}
+
+void TBP::Save_to_file(std::string to_file = "NULL")
+{
+    static unsigned int counter = 0;
+    if (to_file == "NULL") {
+        Save();
+    } else {
+        std::fstream output_file;
+        output_file.open(to_file, std::ios::out);
+        for (int i = 0; i < NUMBER_OF_STAR; i++) {
+            output_file << std::fixed;
+            output_file << std::setprecision(8)
+                        << stars[i].x[0] << " "
+                        << stars[i].x[1] << " "
+                        << stars[i].x[2] << " "
+                        << stars[i].p[0] << " "
+                        << stars[i].p[1] << " "
+                        << stars[i].p[2] << " ";
+        }
+        if (counter % 500 == 0) {
+            output_file << std::endl;
+        } else {
+            output_file << "\n";
+        }
+    }
+    counter++;
 }
 
 void TBP::Show()
