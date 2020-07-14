@@ -20,7 +20,7 @@ void Random_Generate(int data_size)
     fs::create_directory(dir);
     std::ofstream(dir + "/" + file_1);
     std::fstream file;
-    file.open(dir + "/" + file_1, std::ios::app);
+    file.open(dir + "/" + file_1, std::ios::out);
     for (int i = 0; i < data_size; i++) {
         for (int j = 0; j < NUMBER_OF_STAR; j++) {
             file << Rand_0to1() / 2 + 0.5 << " ";
@@ -28,10 +28,8 @@ void Random_Generate(int data_size)
                 file << Rand_0to1() - 0.5 << " ";
             }
         }
-        file << "\n";
-        if (i % 1000 == 0) {
-            file << std::flush;
-        }
+        file.seekp(-1, std::ios::cur);
+        file << std::endl;
     }
     file.close();
 }
@@ -97,6 +95,7 @@ void Calcdata_for_learning(int step, int data_interval, double dt)
                 tbp_for_learn.Save_to_file(file_out);
             }
         }
+        file_out.seekp(-1, std::ios::cur);
         file_out << std::endl;
         if (bar == false) {
             std::cout << "|--------------------------------------------------|"
