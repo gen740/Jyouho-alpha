@@ -1,4 +1,6 @@
+#include "DataGen.hpp"
 #include "TBP_class.hpp"
+
 
 #include <array>
 #include <cmath>
@@ -103,7 +105,7 @@ void TBP::file_open()
 {
     for (int i = 0; i < NUMBER_OF_STAR; i++) {
         files[i].open("data/star" + std::to_string(i + 1) + ".csv",
-            std::ios::out);
+            std::ios::app);
     }
 }
 
@@ -193,14 +195,13 @@ void TBP::Save()
     counter++;
 }
 
-void TBP::Save_to_file(std::string to_file = "NULL")
+void TBP::Save_to_file(std::string to_file)
 {
-    static unsigned int counter = 0;
     if (to_file == "NULL") {
         Save();
     } else {
         static std::fstream output_file;
-        output_file.open(to_file, std::ios::out);
+        output_file.open(to_file, std::ios::app);
         for (int i = 0; i < NUMBER_OF_STAR; i++) {
             output_file << std::fixed;
             output_file << std::setprecision(8)
@@ -211,16 +212,11 @@ void TBP::Save_to_file(std::string to_file = "NULL")
                         << stars[i].p[1] << " "
                         << stars[i].p[2] << " ";
         }
-        if (counter % 500 == 0) {
-            output_file << std::endl;
-        } else {
-            output_file << "\n";
-        }
+        output_file.close();
     }
-    counter++;
 }
 
-void TBP::Save_to_file(std::fstream to_file)
+void TBP::Save_to_file(std::fstream& to_file)
 {
     static unsigned int counter = 0;
     for (int i = 0; i < NUMBER_OF_STAR; i++) {
@@ -233,12 +229,6 @@ void TBP::Save_to_file(std::fstream to_file)
                 << stars[i].p[1] << " "
                 << stars[i].p[2] << " ";
     }
-    if (counter % 500 == 0) {
-        to_file << std::endl;
-    } else {
-        to_file << "\n";
-    }
-    counter++;
 }
 
 void TBP::Show()

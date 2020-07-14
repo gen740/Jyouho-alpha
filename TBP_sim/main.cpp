@@ -11,8 +11,8 @@ namespace fs = std::filesystem;
 
 int main()
 {
-    Random_Generate(100);
-    Calcdata_for_learning(1);
+    Random_Generate(50000);
+    Calcdata_for_learning(10);
     /*
     std::fstream file;
     star stars[NUMBER_OF_STAR] = {
@@ -23,7 +23,7 @@ int main()
 
     TBP test(stars);
     test.Show();
-    std::ofstream("data/options.txt");
+    std::ofstream("data/options.txt")
     file.open("data/options.txt");
     file << "{ 'NUMBER_OF_STAR': " << NUMBER_OF_STAR << std::endl
          << ",'DIM': " << DIM << std::endl

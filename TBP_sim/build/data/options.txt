@@ -1,3 +1,0 @@
-{ 'NUMBER_OF_STAR': 3
-,'DIM': 3
-,'test':535,}

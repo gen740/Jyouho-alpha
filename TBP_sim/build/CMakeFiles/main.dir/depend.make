@@ -5,6 +5,7 @@ CMakeFiles/main.dir/DataGen.cpp.o: ../DataGen.cpp
 CMakeFiles/main.dir/DataGen.cpp.o: ../DataGen.hpp
 CMakeFiles/main.dir/DataGen.cpp.o: ../TBP_class.hpp
 
+CMakeFiles/main.dir/TBP_class.cpp.o: ../DataGen.hpp
 CMakeFiles/main.dir/TBP_class.cpp.o: ../TBP_class.cpp
 CMakeFiles/main.dir/TBP_class.cpp.o: ../TBP_class.hpp
 
