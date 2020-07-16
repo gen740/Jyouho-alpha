@@ -6,20 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/DataGen.cpp
-DataGen.hpp
-/Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/DataGen.hpp
-TBP_class.hpp
-/Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/TBP_class.hpp
-array
--
-filesystem
--
-fstream
--
-iostream
--
-
 /Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/DataGen.hpp
 TBP_class.hpp
 /Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/TBP_class.hpp
@@ -30,38 +16,24 @@ fstream
 iostream
 -
 
-/Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/TBP_class.cpp
-DataGen.hpp
-/Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/DataGen.hpp
-TBP_class.hpp
 /Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/TBP_class.hpp
 array
 -
-cmath
--
-cstdarg
--
-cstdlib
--
-ctime
--
-filesystem
--
 fstream
--
-iomanip
--
-iostream
--
-random
 -
 string
 -
 
+/Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/main.cpp
+DataGen.hpp
+/Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/DataGen.hpp
+TBP_class.hpp
 /Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/TBP_class.hpp
 array
 -
-fstream
+filesystem
+-
+iostream
 -
 string
 -

@@ -11,7 +11,7 @@ namespace fs = std::filesystem;
 
 int main()
 {
-    Random_Generate(50000);
+    Random_Generate(20000);
     Calcdata_for_learning(10);
     /*
     std::fstream file;

@@ -198,11 +198,11 @@ void TBP::Save()
 
 void TBP::Save_to_file(std::string to_file)
 {
+    static std::fstream output_file;
     if (to_file == "NULL") {
         Save();
     } else {
-        static std::fstream output_file;
-        output_file.open(to_file, std::ios::app);
+        output_file.open(to_file, std::ios::out | std::ios::in | std::ios::ate);
         for (int i = 0; i < NUMBER_OF_STAR; i++) {
             output_file << std::fixed;
             output_file << std::setprecision(8);
@@ -213,6 +213,8 @@ void TBP::Save_to_file(std::string to_file)
                 output_file << stars[i].p[j] << " ";
             }
         }
+        output_file.seekp(-1, std::ios::end);
+        output_file << std::endl;
         output_file.close();
     }
 }
