@@ -14,7 +14,7 @@ x_test, y_test = np.loadtxt("./TBP_sim/build/data_for_learning/initial_value.csv
                  np.loadtxt("./TBP_sim/build/data_for_learning/forward_step_data.csv",
                          delimiter=" ")
 
-inputs = Input((15))
+inputs = Input(shape=(15,))
 x = Dense(3000, activation='sigmoid')(inputs)
 x = Dense(3000, activation='sigmoid')(x)
 x = Dense(3000, activation='sigmoid')(x)
@@ -28,7 +28,7 @@ output = Dense(120, activation='softmax')(x)
 model = keras.Model(inputs, output)
 model.compile(
     loss='mean_squared_error',
-    optimizer=keras.optimizers.Adam(),
+    optimizer=keras.optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False),
     metrics=["accuracy"],
 )
 
