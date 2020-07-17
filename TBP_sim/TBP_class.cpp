@@ -7,14 +7,12 @@
 #include <cstdarg>
 #include <cstdlib>
 #include <ctime>
-#include <filesystem>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
 #include <random>
 #include <string>
 
-namespace fs = std::filesystem;
 // todo function prototype
 
 // the global functions.
@@ -77,11 +75,9 @@ void star::Show()
 // constructor for TBP
 TBP::TBP(star stars_input[])
 {
-    fs::remove_all("data");
-    fs::create_directory("data");
     for (int i = 0; i < NUMBER_OF_STAR; i++) {
         stars[i] = stars_input[i];
-        std::ofstream("data/star" + std::to_string(i + 1) + ".csv");
+        std::ofstream("../data/star" + std::to_string(i + 1) + ".csv");
     }
     file_open();
 }
@@ -104,7 +100,7 @@ TBP::TBP(std::array<double, (NUMBER_OF_STAR * (1 + 2 * DIM))> data)
 void TBP::file_open()
 {
     for (int i = 0; i < NUMBER_OF_STAR; i++) {
-        files[i].open("data/star" + std::to_string(i + 1) + ".csv",
+        files[i].open("../data/star" + std::to_string(i + 1) + ".csv",
             std::ios::app);
     }
 }

@@ -2,13 +2,11 @@
 #include "TBP_class.hpp"
 
 #include <array>
-#include <filesystem>
 #include <fstream>
 #include <iostream>
 
-namespace fs = std::filesystem;
 
-std::string dir = "data_for_learning";
+std::string dir = "../data_for_learning";
 std::string file_1 = "initial_value.csv";
 std::string file_2 = "forward_dt_data.csv";
 std::string file_3 = "forward_step_data.csv";
@@ -16,8 +14,6 @@ std::string file_3 = "forward_step_data.csv";
 void Random_Generate(int data_size)
 {
     SizeOfData = data_size;
-    fs::remove_all(dir);
-    fs::create_directory(dir);
     std::ofstream(dir + "/" + file_1);
     std::fstream file;
     file.open(dir + "/" + file_1, std::ios::out);
