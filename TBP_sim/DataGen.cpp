@@ -5,7 +5,6 @@
 #include <fstream>
 #include <iostream>
 
-
 std::string dir = "../data_for_learning";
 std::string file_1 = "initial_value.csv";
 std::string file_2 = "forward_dt_data.csv";

@@ -1,7 +1,6 @@
 #include "DataGen.hpp"
 #include "TBP_class.hpp"
 
-
 #include <array>
 #include <cmath>
 #include <cstdarg>
@@ -14,6 +13,16 @@
 #include <string>
 
 // todo function prototype
+
+#define EXPORT_DATA_X(out_file)           \
+    for (int j = 0; j < DIM; j++) {       \
+        out_file << stars[i].x[j] << " "; \
+    }
+
+#define EXPORT_DATA_Y(out_file)           \
+    for (int j = 0; j < DIM; j++) {       \
+        out_file << stars[i].p[j] << " "; \
+    }
 
 // the global functions.
 // the function of create random real
@@ -31,13 +40,12 @@ star::star() {}
 
 star::star(double input, ...)
 {
-    double n[1 + DIM * 2];
+    double n[DIM * 2];
     va_list args;
     va_start(args, input);
     for (int i = 0; i < DIM * 2; i++) {
         n[i] = va_arg(args, double);
     }
-
     m = input;
     for (int i = 0; i < DIM; i++) {
         x[i] = n[i];
@@ -61,15 +69,15 @@ void star::Show()
 {
     std::cout << std::fixed;
     std::cout << std::setprecision(8)
-              << "mass    : " << m << std::endl
-              << "position: "
-              << x[0] << " "  // todo modification
-              << x[1] << " "
-              << x[2] << " \n"
-              << "momentum: "
-              << p[0] << " "
-              << p[1] << " "
-              << p[2] << " \n\n";
+              << "mass    : " << m << "\nposition: ";
+    for (int i = 0; i < DIM; i++) {
+        std::cout << x[i] << " ";
+    }
+    std::cout << "\nmomentum: ";
+    for (int i = 0; i < DIM; i++) {
+        std::cout << p[i] << " ";
+    }
+    std::cout << std::endl;
 }
 
 // constructor for TBP
@@ -87,12 +95,12 @@ TBP::TBP(std::array<double, (NUMBER_OF_STAR * (1 + 2 * DIM))> data)
     int num = 1 + 2 * DIM;
     for (int i = 0; i < NUMBER_OF_STAR; i++) {
         stars[i].m = data[num * i + 0];  // todo modification
-        stars[i].x[0] = data[num * i + 1];
-        stars[i].x[1] = data[num * i + 2];
-        stars[i].x[2] = data[num * i + 3];
-        stars[i].p[0] = data[num * i + 4];
-        stars[i].p[1] = data[num * i + 5];
-        stars[i].p[2] = data[num * i + 6];
+        for (int j = 0; j < DIM; j++) {
+            stars[j].x[j] = data[num * i + j + 1];
+        }
+        for (int j = 0; j < DIM; j++) {
+            stars[j].p[j] = data[num * i + j + 4];
+        }
     }
 }
 
@@ -100,6 +108,7 @@ TBP::TBP(std::array<double, (NUMBER_OF_STAR * (1 + 2 * DIM))> data)
 void TBP::file_open()
 {
     for (int i = 0; i < NUMBER_OF_STAR; i++) {
+        std::ofstream("../data/star" + std::to_string(i + 1) + ".csv");
         files[i].open("../data/star" + std::to_string(i + 1) + ".csv",
             std::ios::app);
     }
@@ -173,16 +182,12 @@ void TBP::runge()
 void TBP::Save()
 {
     static unsigned int counter = 0;
+    file_open();
     for (int i = 0; i < NUMBER_OF_STAR; i++) {
         files[i] << std::fixed;
         files[i] << std::setprecision(8);
-        for (int j = 0; j < DIM; j++) {
-            files[i] << stars[i].x[j] << " ";
-        }
-        for (int j = 0; j < DIM; j++) {
-            files[i] << stars[i].p[j] << " ";
-        }
-
+        EXPORT_DATA_X(files[i]);
+        EXPORT_DATA_Y(files[i]);
         if (counter % 500 == 0) {
             files[i] << std::endl;
         } else {

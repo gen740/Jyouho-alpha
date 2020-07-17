@@ -1,7 +1,7 @@
 import platform
-if platform.system() == "Darwin":  # google colabo でやるか自分のPCでやっているかの判定
-    import os
-    os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
+# if platform.system() == "Darwin":  # google colabo でやるか自分のPCでやっているかの判定
+import os
+os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
 import keras
 from keras.layers import Input, Dense, Dropout, Activation, Flatten, BatchNormalization, GlobalAveragePooling2D
 from keras.layers import Conv2D, MaxPooling2D
@@ -9,9 +9,9 @@ from keras.utils import to_categorical
 import matplotlib.pyplot as plt
 import numpy as np
 
-x_test, y_test = np.loadtxt("./TBP_sim/build/data_for_learning/initial_value.csv",
+x_test, y_test = np.loadtxt("./TBP_sim/data_for_learning/initial_value.csv",
         delimiter=" "), \
-                 np.loadtxt("./TBP_sim/build/data_for_learning/forward_step_data.csv",
+                 np.loadtxt("./TBP_sim/data_for_learning/forward_step_data.csv",
                          delimiter=" ")
 
 inputs = Input(shape=(15,))
