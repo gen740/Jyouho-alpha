@@ -62,7 +62,7 @@ star::star(bool rand_initialization)
 void star::Show()
 {
     std::cout << std::fixed;
-    std::cout << std::setprecision(8)
+    std::cout << std::setprecision(16)
               << "mass    : " << m << std::endl
               << "position: "
               << x[0] << " "  // todo modification
@@ -179,7 +179,7 @@ void TBP::Save()
     static unsigned int counter = 0;
     for (int i = 0; i < NUMBER_OF_STAR; i++) {
         files[i] << std::fixed;
-        files[i] << std::setprecision(8);
+        files[i] << std::setprecision(16);
         for (int j = 0; j < DIM; j++) {
             files[i] << stars[i].x[j] << " ";
         }
@@ -205,7 +205,7 @@ void TBP::Save_to_file(std::string to_file)
         output_file.open(to_file, std::ios::out | std::ios::in | std::ios::ate);
         for (int i = 0; i < NUMBER_OF_STAR; i++) {
             output_file << std::fixed;
-            output_file << std::setprecision(8);
+            output_file << std::setprecision(16);
             for (int j = 0; j < DIM; j++) {
                 output_file << stars[i].x[j] << " ";
             }
@@ -224,7 +224,7 @@ void TBP::Save_to_file(std::fstream& to_file)
     static unsigned int counter = 0;
     for (int i = 0; i < NUMBER_OF_STAR; i++) {
         to_file << std::fixed;
-        to_file << std::setprecision(8);
+        to_file << std::setprecision(16);
         for (int j = 0; j < DIM; j++) {
             to_file << stars[i].x[j] << " ";
         }

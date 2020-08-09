@@ -21,6 +21,8 @@ void Random_Generate(int data_size)
     std::ofstream(dir + "/" + file_1);
     std::fstream file;
     file.open(dir + "/" + file_1, std::ios::out);
+    file << std::fixed;
+    file << std::setprecision(16);
     for (int i = 0; i < data_size; i++) {
         for (int j = 0; j < NUMBER_OF_STAR; j++) {
             file << Rand_0to1() / 2 + 0.5 << " ";
@@ -44,6 +46,8 @@ void Calcdata_for_learning(double t, double dt)
     std::fstream file;
     file.open(dir + "/" + file_1, std::ios::in);
     std::array<double, DATA_DIM> data;
+    file << std::fixed;
+    file << std::setprecision(16);
     for (int i = 0; i < SizeOfData; i++) {
         for (int i = 0; i < DATA_DIM; i++) {
             file >> data[i];
@@ -80,6 +84,8 @@ void Calcdata_for_learning(int step, int data_interval, double dt)
     std::ofstream(dir + "/" + file_3);
     std::fstream file;
     std::fstream file_out;
+    file_out << std::fixed;
+    file_out << std::setprecision(16);
     file.open(dir + "/" + file_1, std::ios::in);
     file_out.open(dir + "/" + file_3, std::ios::out);
     std::array<double, DATA_DIM> data;
