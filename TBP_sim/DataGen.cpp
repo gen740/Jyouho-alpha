@@ -25,7 +25,8 @@ void Random_Generate(int data_size)
     file << std::setprecision(16);
     for (int i = 0; i < data_size; i++) {
         for (int j = 0; j < NUMBER_OF_STAR; j++) {
-            file << Rand_0to1() / 2 + 0.5 << " ";
+            //  file << Rand_0to1() / 2 + 0.5 << " ";
+            file << 1.0 << " ";
             for (int k = 0; k < DIM * 2; k++) {
                 file << Rand_0to1() - 0.5 << " ";
             }

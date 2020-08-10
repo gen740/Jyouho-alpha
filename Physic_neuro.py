@@ -1,7 +1,5 @@
-import platform
-if platform.system() == "Darwin":  # google colabo でやるか自分のPCでやっているかの判定
-    import os
-    os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
+import os
+os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
 import keras
 from keras.layers import Input, Dense, Dropout, Activation, Flatten, BatchNormalization, GlobalAveragePooling2D
 from keras.layers import Conv2D, MaxPooling2D
@@ -11,24 +9,28 @@ import numpy as np
 
 x_test, y_test = np.loadtxt("./TBP_sim/build/data_for_learning/initial_value.csv",
         delimiter=" "), \
-                 np.loadtxt("./TBP_sim/build/data_for_learning/forward_step_data.csv",
+                 np.loadtxt("./TBP_sim/build/data_for_learning/forward_dt_data.csv",
                          delimiter=" ")
+x_test, y_test = x_test/10, y_test/10
 
-inputs = Input(shape=(15,))
-x = Dense(3000, activation='sigmoid')(inputs)
-x = Dense(3000, activation='sigmoid')(x)
-x = Dense(3000, activation='sigmoid')(x)
-x = Dense(3000, activation='sigmoid')(x)
-x = Dense(3000, activation='sigmoid')(x)
-x = Dense(3000, activation='sigmoid')(x)
-x = Dense(3000, activation='sigmoid')(x)
-x = Dense(3000, activation='sigmoid')(x)
-output = Dense(120, activation='softmax')(x)
+inputs = Input(shape=(15,),dtype='float32')
+x = Dense(256, activation='tanh',dtype='float32')(inputs)
+x = Dense(512, activation='tanh',dtype='float32')(x)
+x = Dense(512, activation='tanh',dtype='float32')(x)
+x = Dense(512, activation='tanh',dtype='float32')(x)
+x = Dense(1024, activation='tanh',dtype='float32')(x)
+x = Dense(1024, activation='tanh',dtype='float32')(x)
+x = Dense(512, activation='tanh',dtype='float32')(x)
+x = Dense(512, activation='tanh',dtype='float32')(x)
+x = Dense(512, activation='tanh',dtype='float32')(x)
+x = Dense(256, activation='tanh',dtype='float32')(x)
+x = Dense(256, activation='tanh',dtype='float32')(x)
+output = Dense(12, activation='tanh',dtype='float32')(x)
 
 model = keras.Model(inputs, output)
 model.compile(
     loss='mean_squared_error',
-    optimizer=keras.optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False),
+    optimizer=keras.optimizers.Adam(lr=0.0008, epsilon=None, decay=0.5, amsgrad=False),
     metrics=["accuracy"],
 )
 
@@ -36,7 +38,7 @@ keras.utils.plot_model(model,
                        show_shapes=True,
                        show_layer_names=True)
 
-epochs = 5
+epochs = 120
 history = model.fit(x_test, y_test, batch_size=100, epochs=epochs, verbose=1)
 
 test_scores = model.evaluate(x_test, y_test, verbose=2)

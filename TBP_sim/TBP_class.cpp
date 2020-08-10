@@ -27,7 +27,7 @@ double Rand_0to1()
     return dist(engine);
 }
 
-// Construntors for star
+// ============================== star =========================================
 // empty constructor for TBP class
 star::star() {}
 
@@ -50,7 +50,7 @@ star::star(double input, ...)
 star::star(bool rand_initialization)
 {
     if (rand_initialization == true) {
-        m = Rand_0to1() / 2.0 + 0.5;
+        m = 1;  // Rand_0to1() / 2.0 + 0.5;
         for (int i = 0; i < DIM; i++) {
             x[i] = Rand_0to1() - 0.5;
             p[i] = Rand_0to1() - 0.5;
@@ -58,7 +58,6 @@ star::star(bool rand_initialization)
     }
 }
 
-// member function
 void star::Show()
 {
     std::cout << std::fixed;
@@ -74,6 +73,7 @@ void star::Show()
               << p[2] << " \n\n";
 }
 
+// ================================ TBP ========================================
 // constructor for TBP
 TBP::TBP(star stars_input[])
 {
@@ -100,7 +100,6 @@ TBP::TBP(std::array<double, (NUMBER_OF_STAR * (1 + 2 * DIM))> data)
     }
 }
 
-// Other functions belong to TBP.
 void TBP::file_open()
 {
     for (int i = 0; i < NUMBER_OF_STAR; i++) {
