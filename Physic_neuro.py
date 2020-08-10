@@ -13,19 +13,35 @@ x_test, y_test = np.loadtxt("./TBP_sim/build/data_for_learning/initial_value.csv
                          delimiter=" ")
 x_test, y_test = x_test/10, y_test/10
 
-inputs = Input(shape=(15,),dtype='float32')
-x = Dense(256, activation='tanh',dtype='float32')(inputs)
-x = Dense(512, activation='tanh',dtype='float32')(x)
-x = Dense(512, activation='tanh',dtype='float32')(x)
-x = Dense(512, activation='tanh',dtype='float32')(x)
-x = Dense(1024, activation='tanh',dtype='float32')(x)
-x = Dense(1024, activation='tanh',dtype='float32')(x)
-x = Dense(512, activation='tanh',dtype='float32')(x)
-x = Dense(512, activation='tanh',dtype='float32')(x)
-x = Dense(512, activation='tanh',dtype='float32')(x)
-x = Dense(256, activation='tanh',dtype='float32')(x)
-x = Dense(256, activation='tanh',dtype='float32')(x)
-output = Dense(12, activation='tanh',dtype='float32')(x)
+x_2 = x_test[:,5:10] - x_test[:,0:5]
+x_3 = x_test[:,10:15] - x_test[:,0:5]
+
+x_test = np.concatenate([x_2[:,1:5],x_3[:,1:5]],1)
+
+y_2 = y_test[:,4:8] - y_test[:,0:4]
+y_3 = y_test[:,8:12] - y_test[:,0:4]
+
+y_test = np.concatenate([y_2[:,0:4],y_3[:,0:4]],1)
+
+inputs = Input(shape=(8,),dtype='float32')
+x = Dense(256, activation='linear',dtype='float32')(inputs)
+x = Dense(256, activation='linear',dtype='float32')(x)
+x = Dense(256, activation='linear',dtype='float32')(x)
+x = Dense(256, activation='linear',dtype='float32')(x)
+x = Dense(512, activation='linear',dtype='float32')(x)
+x = Dense(2000, activation='linear',dtype='float32')(x)
+x = Dense(2000, activation='linear',dtype='float32')(x)
+x = Dense(2000, activation='linear',dtype='float32')(x)
+x = Dense(2000, activation='linear',dtype='float32')(x)
+x = Dense(2000, activation='linear',dtype='float32')(x)
+x = Dense(2000, activation='linear',dtype='float32')(x)
+x = Dense(2000, activation='linear',dtype='float32')(x)
+x = Dense(512, activation='linear',dtype='float32')(x)
+x = Dense(512, activation='linear',dtype='float32')(x)
+x = Dense(256, activation='linear',dtype='float32')(x)
+x = Dense(256, activation='linear',dtype='float32')(x)
+x = Dense(256, activation='linear',dtype='float32')(x)
+output = Dense(8, activation='linear',dtype='float32')(x)
 
 model = keras.Model(inputs, output)
 model.compile(
