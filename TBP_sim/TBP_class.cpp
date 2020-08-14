@@ -1,28 +1,21 @@
 #include "DataGen.hpp"
 #include "TBP_class.hpp"
 
+
 #include <array>
 #include <cmath>
 #include <cstdarg>
 #include <cstdlib>
 #include <ctime>
+#include <filesystem>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
 #include <random>
 #include <string>
 
+namespace fs = std::filesystem;
 // todo function prototype
-
-#define EXPORT_DATA_X(out_file)           \
-    for (int j = 0; j < DIM; j++) {       \
-        out_file << stars[i].x[j] << " "; \
-    }
-
-#define EXPORT_DATA_Y(out_file)           \
-    for (int j = 0; j < DIM; j++) {       \
-        out_file << stars[i].p[j] << " "; \
-    }
 
 // the global functions.
 // the function of create random real
@@ -34,18 +27,19 @@ double Rand_0to1()
     return dist(engine);
 }
 
-// Construntors for star
+// ============================== star =========================================
 // empty constructor for TBP class
 star::star() {}
 
 star::star(double input, ...)
 {
-    double n[DIM * 2];
+    double n[1 + DIM * 2];
     va_list args;
     va_start(args, input);
     for (int i = 0; i < DIM * 2; i++) {
         n[i] = va_arg(args, double);
     }
+
     m = input;
     for (int i = 0; i < DIM; i++) {
         x[i] = n[i];
@@ -56,7 +50,7 @@ star::star(double input, ...)
 star::star(bool rand_initialization)
 {
     if (rand_initialization == true) {
-        m = Rand_0to1() / 2.0 + 0.5;
+        m = 1;  // Rand_0to1() / 2.0 + 0.5;
         for (int i = 0; i < DIM; i++) {
             x[i] = Rand_0to1() - 0.5;
             p[i] = Rand_0to1() - 0.5;
@@ -64,28 +58,30 @@ star::star(bool rand_initialization)
     }
 }
 
-// member function
 void star::Show()
 {
     std::cout << std::fixed;
-    std::cout << std::setprecision(8)
-              << "mass    : " << m << "\nposition: ";
-    for (int i = 0; i < DIM; i++) {
-        std::cout << x[i] << " ";
-    }
-    std::cout << "\nmomentum: ";
-    for (int i = 0; i < DIM; i++) {
-        std::cout << p[i] << " ";
-    }
-    std::cout << std::endl;
+    std::cout << std::setprecision(16)
+              << "mass    : " << m << std::endl
+              << "position: "
+              << x[0] << " "  // todo modification
+              << x[1] << " "
+              << x[2] << " \n"
+              << "momentum: "
+              << p[0] << " "
+              << p[1] << " "
+              << p[2] << " \n\n";
 }
 
+// ================================ TBP ========================================
 // constructor for TBP
 TBP::TBP(star stars_input[])
 {
+    fs::remove_all("data");
+    fs::create_directory("data");
     for (int i = 0; i < NUMBER_OF_STAR; i++) {
         stars[i] = stars_input[i];
-        std::ofstream("../data/star" + std::to_string(i + 1) + ".csv");
+        std::ofstream("data/star" + std::to_string(i + 1) + ".csv");
     }
     file_open();
 }
@@ -95,21 +91,19 @@ TBP::TBP(std::array<double, (NUMBER_OF_STAR * (1 + 2 * DIM))> data)
     int num = 1 + 2 * DIM;
     for (int i = 0; i < NUMBER_OF_STAR; i++) {
         stars[i].m = data[num * i + 0];  // todo modification
-        for (int j = 0; j < DIM; j++) {
-            stars[j].x[j] = data[num * i + j + 1];
-        }
-        for (int j = 0; j < DIM; j++) {
-            stars[j].p[j] = data[num * i + j + 4];
-        }
+        stars[i].x[0] = data[num * i + 1];
+        stars[i].x[1] = data[num * i + 2];
+        stars[i].x[2] = data[num * i + 3];
+        stars[i].p[0] = data[num * i + 4];
+        stars[i].p[1] = data[num * i + 5];
+        stars[i].p[2] = data[num * i + 6];
     }
 }
 
-// Other functions belong to TBP.
 void TBP::file_open()
 {
     for (int i = 0; i < NUMBER_OF_STAR; i++) {
-        std::ofstream("../data/star" + std::to_string(i + 1) + ".csv");
-        files[i].open("../data/star" + std::to_string(i + 1) + ".csv",
+        files[i].open("data/star" + std::to_string(i + 1) + ".csv",
             std::ios::app);
     }
 }
@@ -182,12 +176,16 @@ void TBP::runge()
 void TBP::Save()
 {
     static unsigned int counter = 0;
-    file_open();
     for (int i = 0; i < NUMBER_OF_STAR; i++) {
         files[i] << std::fixed;
-        files[i] << std::setprecision(8);
-        EXPORT_DATA_X(files[i]);
-        EXPORT_DATA_Y(files[i]);
+        files[i] << std::setprecision(16);
+        for (int j = 0; j < DIM; j++) {
+            files[i] << stars[i].x[j] << " ";
+        }
+        for (int j = 0; j < DIM; j++) {
+            files[i] << stars[i].p[j] << " ";
+        }
+
         if (counter % 500 == 0) {
             files[i] << std::endl;
         } else {
@@ -206,7 +204,7 @@ void TBP::Save_to_file(std::string to_file)
         output_file.open(to_file, std::ios::out | std::ios::in | std::ios::ate);
         for (int i = 0; i < NUMBER_OF_STAR; i++) {
             output_file << std::fixed;
-            output_file << std::setprecision(8);
+            output_file << std::setprecision(16);
             for (int j = 0; j < DIM; j++) {
                 output_file << stars[i].x[j] << " ";
             }
@@ -225,7 +223,7 @@ void TBP::Save_to_file(std::fstream& to_file)
     static unsigned int counter = 0;
     for (int i = 0; i < NUMBER_OF_STAR; i++) {
         to_file << std::fixed;
-        to_file << std::setprecision(8);
+        to_file << std::setprecision(16);
         for (int j = 0; j < DIM; j++) {
             to_file << stars[i].x[j] << " ";
         }

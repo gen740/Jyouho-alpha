@@ -2,10 +2,13 @@
 #include "TBP_class.hpp"
 
 #include <array>
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 
-std::string dir = "../data_for_learning";
+namespace fs = std::filesystem;
+
+std::string dir = "data_for_learning";
 std::string file_1 = "initial_value.csv";
 std::string file_2 = "forward_dt_data.csv";
 std::string file_3 = "forward_step_data.csv";
@@ -13,12 +16,17 @@ std::string file_3 = "forward_step_data.csv";
 void Random_Generate(int data_size)
 {
     SizeOfData = data_size;
+    fs::remove_all(dir);
+    fs::create_directory(dir);
     std::ofstream(dir + "/" + file_1);
     std::fstream file;
     file.open(dir + "/" + file_1, std::ios::out);
+    file << std::fixed;
+    file << std::setprecision(16);
     for (int i = 0; i < data_size; i++) {
         for (int j = 0; j < NUMBER_OF_STAR; j++) {
-            file << Rand_0to1() / 2 + 0.5 << " ";
+            //  file << Rand_0to1() / 2 + 0.5 << " ";
+            file << 1.0 << " ";
             for (int k = 0; k < DIM * 2; k++) {
                 file << Rand_0to1() - 0.5 << " ";
             }
@@ -39,6 +47,8 @@ void Calcdata_for_learning(double t, double dt)
     std::fstream file;
     file.open(dir + "/" + file_1, std::ios::in);
     std::array<double, DATA_DIM> data;
+    file << std::fixed;
+    file << std::setprecision(16);
     for (int i = 0; i < SizeOfData; i++) {
         for (int i = 0; i < DATA_DIM; i++) {
             file >> data[i];
@@ -75,6 +85,8 @@ void Calcdata_for_learning(int step, int data_interval, double dt)
     std::ofstream(dir + "/" + file_3);
     std::fstream file;
     std::fstream file_out;
+    file_out << std::fixed;
+    file_out << std::setprecision(16);
     file.open(dir + "/" + file_1, std::ios::in);
     file_out.open(dir + "/" + file_3, std::ios::out);
     std::array<double, DATA_DIM> data;
