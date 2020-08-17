@@ -26,20 +26,21 @@ for i in range(int(data_shape[1]/12)):
     star2 = np.append(star2,np.array([False,False,True,True,False,False]))
     star3 = np.append(star3,np.array([False,False,False,False,True,True]))
 
-star1 = reshaped_data[8,np.array(star1,dtype=bool)]
-star2 = reshaped_data[8,np.array(star2,dtype=bool)]
-star3 = reshaped_data[8,np.array(star3,dtype=bool)]
+for i in range(100):
+    star1_data = reshaped_data[i,np.array(star1,dtype=bool)]
+    star2_data = reshaped_data[i,np.array(star2,dtype=bool)]
+    star3_data = reshaped_data[i,np.array(star3,dtype=bool)]
 
+    star1_data = star1_data.reshape(int(data_shape[1]/12),2)
+    star2_data = star2_data.reshape(int(data_shape[1]/12),2)
+    star3_data = star3_data.reshape(int(data_shape[1]/12),2)
 
-star1_data = star1.reshape(int(data_shape[1]/12),2)
-star2_data = star2.reshape(int(data_shape[1]/12),2)
-star3_data = star3.reshape(int(data_shape[1]/12),2)
+    fig, ax = plt.subplots(dpi = 400)
 
-fig, ax = plt.subplots()
+    ax.plot(star1_data[:,0],star1_data[:,1],".",markersize = 0.3)
+    ax.plot(star2_data[:,0],star2_data[:,1],".",markersize = 0.3)
+    ax.plot(star3_data[:,0],star3_data[:,1],".",markersize = 0.3)
 
-ax.plot(star1_data[:,0],star1_data[:,1],".")
-ax.plot(star2_data[:,0],star2_data[:,1],".")
-ax.plot(star3_data[:,0],star3_data[:,1],".")
-
-fig.show()
-plt.show()
+    fig.savefig(f"./Result/figure{i + 1}.png")
+    plt.clf()
+    fig.clf()

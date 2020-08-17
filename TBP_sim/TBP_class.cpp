@@ -91,12 +91,12 @@ TBP::TBP(std::array<double, (NUMBER_OF_STAR * (1 + 2 * DIM))> data)
     int num = 1 + 2 * DIM;
     for (int i = 0; i < NUMBER_OF_STAR; i++) {
         stars[i].m = data[num * i + 0];  // todo modification
-        stars[i].x[0] = data[num * i + 1];
-        stars[i].x[1] = data[num * i + 2];
-        stars[i].x[2] = data[num * i + 3];
-        stars[i].p[0] = data[num * i + 4];
-        stars[i].p[1] = data[num * i + 5];
-        stars[i].p[2] = data[num * i + 6];
+        for (int j = 0; j < DIM; j++) {
+            stars[i].x[j] = data[num * i + 1 + j];
+        }
+        for (int j = 0; j < DIM; j++) {
+            stars[i].p[j] = data[num * i + 1 + j + DIM];
+        }
     }
 }
 

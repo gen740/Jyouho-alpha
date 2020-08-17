@@ -11,8 +11,8 @@ namespace fs = std::filesystem;
 
 int main()
 {
-    Random_Generate(8000);
-    Calcdata_for_learning(100, 10);
+    Random_Generate_2(10000);
+    Calcdata_for_learning_2();
     /*
     std::fstream file;
     star stars[NUMBER_OF_STAR] = {

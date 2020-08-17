@@ -29,7 +29,7 @@ void Random_Generate(int data_size)
             //  file << Rand_0to1() / 2 + 0.5 << " ";
             file << 1.0 << " ";
             for (int k = 0; k < DIM; k++) {
-                file << (Rand_0to1() - 0.0) << " ";
+                file << (Rand_0to1() - 0.5) << " ";
             }
             for (int k = 0; k < DIM; k++) {
                 file << 0.0 << " ";
@@ -52,22 +52,29 @@ void Random_Generate_2(int data_size)
     file << std::fixed;
     file << std::setprecision(16);
     for (int i = 0; i < data_size; i++) {
-        for (int j = 0; j < NUMBER_OF_STAR; j++) {
-            file << 1.0 << " ";
-            file << 0.0 << " ";
-            file << 0.0 << " ";
-            file << 0.0 << " ";
-            x_2 = -Rand_0to1() / 2;
-            y_2 = Rand_0to1() * std::sqrt(1 - std::pow(x_2, 2));
-            file << x_2 << " ";
-            file << y_2 << " ";
-            file << 0.0 << " ";
-            file << 0.0 << " ";
-            file << -1.0 - x_2 << " ";
-            file << -y_2 << " ";
-            file << 0.0 << " ";
-            file << 0.0 << " ";
-        }
+        double x_2, y_2;
+        // t
+        file << Rand_0to1() * 5 << " ";
+        // Star_1
+        file << 1.0 << " "
+             << 1.0 << " "
+             << 0.0 << " "
+             << 0.0 << " "
+             << 0.0 << " ";
+        // Star_2
+        x_2 = -Rand_0to1() / 2;
+        y_2 = Rand_0to1() * std::sqrt(1 - std::pow(x_2, 2));
+        file << 1.0 << " "
+             << x_2 << " "
+             << y_2 << " "
+             << 0.0 << " "
+             << 0.0 << " ";
+        // Star_3
+        file << 1.0 << " "
+             << -1.0 - x_2 << " "
+             << -y_2 << " "
+             << 0.0 << " "
+             << 0.0 << " ";
         file.seekp(-1, std::ios::cur);
         file << std::endl;
     }
@@ -141,6 +148,46 @@ void Calcdata_for_learning(int step, int data_interval, double dt)
         }
         file_out.seekp(-1, std::ios::cur);
         file_out << std::endl;
+        if (bar == false) {
+            std::cout << "|--------------------------------------------------|"
+                      << std::endl
+                      << " ";
+            bar = true;
+        }
+        if (counter >= processed * num) {
+            std::cout << "#" << std::flush;
+            processed++;
+        }
+        counter++;
+    }
+    file.close();
+}
+
+void Calcdata_for_learning_2(double dt)
+{
+    static unsigned int counter = 0;
+    static bool bar = false;
+    static int processed = 0;
+    const double num = SizeOfData / 50;
+    std::ofstream(dir + "/" + file_2);
+    std::fstream file;
+    file.open(dir + "/" + file_1, std::ios::in);
+    std::array<double, DATA_DIM> data;
+    file << std::fixed;
+    file << std::setprecision(16);
+    for (int i = 0; i < SizeOfData; i++) {
+        double t;
+        file >> t;
+        for (int i = 0; i < DATA_DIM; i++) {
+            file >> data[i];
+        }
+        TBP tbp_for_learn(data);
+        tbp_for_learn.dt = dt;
+        int N = t / dt;
+        for (int k = 0; k < N; k++) {
+            tbp_for_learn.runge();
+        }
+        tbp_for_learn.Save_to_file(dir + "/" + file_2);
         if (bar == false) {
             std::cout << "|--------------------------------------------------|"
                       << std::endl
