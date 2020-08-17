@@ -4,11 +4,11 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/DataGen.cpp" "/Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/build/CMakeFiles/main.dir/DataGen.cpp.o"
-  "/Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/TBP_class.cpp" "/Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/build/CMakeFiles/main.dir/TBP_class.cpp.o"
-  "/Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/main.cpp" "/Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/build/CMakeFiles/main.dir/main.cpp.o"
+  "/home/fujimoto_gen530_g_ecc_u_tokyo_ac/Jyouho-alpha/TBP_sim/DataGen.cpp" "/home/fujimoto_gen530_g_ecc_u_tokyo_ac/Jyouho-alpha/TBP_sim/build/CMakeFiles/main.dir/DataGen.cpp.o"
+  "/home/fujimoto_gen530_g_ecc_u_tokyo_ac/Jyouho-alpha/TBP_sim/TBP_class.cpp" "/home/fujimoto_gen530_g_ecc_u_tokyo_ac/Jyouho-alpha/TBP_sim/build/CMakeFiles/main.dir/TBP_class.cpp.o"
+  "/home/fujimoto_gen530_g_ecc_u_tokyo_ac/Jyouho-alpha/TBP_sim/main.cpp" "/home/fujimoto_gen530_g_ecc_u_tokyo_ac/Jyouho-alpha/TBP_sim/build/CMakeFiles/main.dir/main.cpp.o"
   )
-set(CMAKE_CXX_COMPILER_ID "AppleClang")
+set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
