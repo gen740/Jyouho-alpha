@@ -17,10 +17,8 @@ for i in range(options['NUMBER_OF_STAR']):
 fig, ax = plt.subplots()
 
 if animation == False:
-
     for i in range(options['NUMBER_OF_STAR']):
         ax.plot(stars[i][:,0], stars[i][:,1], "b-")
-
     fig.savefig("./Result/Trajectory.png")
 
 else:

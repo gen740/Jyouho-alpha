@@ -80,41 +80,41 @@ include CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/main.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/main.cpp.o: ../main.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/main.dir/main.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/main.cpp.o -c /Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/main.cpp
+	/usr/local/bin/g++-10  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/main.cpp.o -c /Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/main.cpp
 
 CMakeFiles/main.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/main.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/main.cpp > CMakeFiles/main.dir/main.cpp.i
+	/usr/local/bin/g++-10 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/main.cpp > CMakeFiles/main.dir/main.cpp.i
 
 CMakeFiles/main.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/main.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/main.cpp -o CMakeFiles/main.dir/main.cpp.s
+	/usr/local/bin/g++-10 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/main.cpp -o CMakeFiles/main.dir/main.cpp.s
 
 CMakeFiles/main.dir/TBP_class.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/TBP_class.cpp.o: ../TBP_class.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/main.dir/TBP_class.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/TBP_class.cpp.o -c /Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/TBP_class.cpp
+	/usr/local/bin/g++-10  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/TBP_class.cpp.o -c /Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/TBP_class.cpp
 
 CMakeFiles/main.dir/TBP_class.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/TBP_class.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/TBP_class.cpp > CMakeFiles/main.dir/TBP_class.cpp.i
+	/usr/local/bin/g++-10 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/TBP_class.cpp > CMakeFiles/main.dir/TBP_class.cpp.i
 
 CMakeFiles/main.dir/TBP_class.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/TBP_class.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/TBP_class.cpp -o CMakeFiles/main.dir/TBP_class.cpp.s
+	/usr/local/bin/g++-10 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/TBP_class.cpp -o CMakeFiles/main.dir/TBP_class.cpp.s
 
 CMakeFiles/main.dir/DataGen.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/DataGen.cpp.o: ../DataGen.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/main.dir/DataGen.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/DataGen.cpp.o -c /Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/DataGen.cpp
+	/usr/local/bin/g++-10  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/DataGen.cpp.o -c /Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/DataGen.cpp
 
 CMakeFiles/main.dir/DataGen.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/DataGen.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/DataGen.cpp > CMakeFiles/main.dir/DataGen.cpp.i
+	/usr/local/bin/g++-10 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/DataGen.cpp > CMakeFiles/main.dir/DataGen.cpp.i
 
 CMakeFiles/main.dir/DataGen.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/DataGen.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/DataGen.cpp -o CMakeFiles/main.dir/DataGen.cpp.s
+	/usr/local/bin/g++-10 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/fujimotogen/Documents/GitHub/Jyouho-alpha/TBP_sim/DataGen.cpp -o CMakeFiles/main.dir/DataGen.cpp.s
 
 # Object files for target main
 main_OBJECTS = \

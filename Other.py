@@ -1,17 +1,12 @@
 import os
 os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
-import tensorflow as tf
-import keras
-from keras.layers import Input, Dense, Dropout, Activation, Flatten, BatchNormalization, GlobalAveragePooling2D
-from keras.layers import Conv2D, MaxPooling2D
-from keras.utils import to_categorical
-import matplotlib.pyplot as plt
 import numpy as np
 
 x_test, y_test = np.loadtxt("./TBP_sim/build/data_for_learning/initial_value.csv",
         delimiter=" "), \
                  np.loadtxt("./TBP_sim/build/data_for_learning/forward_step_data.csv",
                          delimiter=" ")
+
 x_test, y_test = x_test/10, y_test/10
 
 print(y_test.shape)

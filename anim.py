@@ -26,9 +26,9 @@ for i in range(int(data_shape[1]/12)):
     star2 = np.append(star2,np.array([False,False,True,True,False,False]))
     star3 = np.append(star3,np.array([False,False,False,False,True,True]))
 
-star1 = reshaped_data[1,np.array(star1,dtype=bool)]
-star2 = reshaped_data[1,np.array(star2,dtype=bool)]
-star3 = reshaped_data[1,np.array(star3,dtype=bool)]
+star1 = reshaped_data[8,np.array(star1,dtype=bool)]
+star2 = reshaped_data[8,np.array(star2,dtype=bool)]
+star3 = reshaped_data[8,np.array(star3,dtype=bool)]
 
 
 star1_data = star1.reshape(int(data_shape[1]/12),2)
@@ -43,34 +43,3 @@ ax.plot(star3_data[:,0],star3_data[:,1],".")
 
 fig.show()
 plt.show()
-"""
-animation = True
-with open("./TBP_sim/build/data/options.txt", 'r') as f:
-    options = f.read()
-options = literal_eval(options)
-stars = []
-for i in range(options['NUMBER_OF_STAR']):
-    stars.append(np.loadtxt(f"./TBP_sim/build/data/star{i + 1}.csv"
-        ,delimiter=' '))
-fig, ax = plt.subplots()
-
-if animation == False:
-
-    for i in range(options['NUMBER_OF_STAR']):
-        ax.plot(stars[i][:,0], stars[i][:,1], "b-")
-
-    fig.savefig("./Result/Trajectory.png")
-
-else:
-    artists = []
-    for i in range(len(stars[i][:,0])):
-        xdata = []
-        ydata = [] 
-        for j in range(options['NUMBER_OF_STAR']):
-            xdata.append(stars[j][i][0])
-            ydata.append(stars[j][i][1])
-        im = ax.plot(xdata,ydata,"b.")
-        artists.append(im)
-    ani = anm.ArtistAnimation(fig, artists, interval=10)
-    ani.save('./Result/Trajectory_ani.mp4', writer="ffmpeg")
-    """

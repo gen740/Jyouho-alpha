@@ -27,8 +27,11 @@ void Random_Generate(int data_size)
         for (int j = 0; j < NUMBER_OF_STAR; j++) {
             //  file << Rand_0to1() / 2 + 0.5 << " ";
             file << 1.0 << " ";
-            for (int k = 0; k < DIM * 2; k++) {
-                file << Rand_0to1() - 0.5 << " ";
+            for (int k = 0; k < DIM; k++) {
+                file << (Rand_0to1() - 0.5) << " ";
+            }
+            for (int k = 0; k < DIM; k++) {
+                file << (Rand_0to1() - 0.5) << " ";
             }
         }
         file.seekp(-1, std::ios::cur);
