@@ -57,8 +57,9 @@ test_scores = model.evaluate(x_test, y_test, verbose=2)
 print("テスト損失:", test_scores[0])
 print("テスト精度（正答率）:", test_scores[1])
 
-
-model.save_weights('./TBP_weight')
+dt_now = datetime.datetime.now()
+s_date = dt_now.strftime('%m_%d_%H:%M:%S')
+model.save_weights(f'./TBP_weight{s_date}')
 
 fig, ax = plt.subplots(dpi = 100, figsize=(12,9))
 fig2, ax2 = plt.subplots(dpi = 100, figsize=(12,9))
