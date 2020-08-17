@@ -1,11 +1,25 @@
-import tensorflow as tf
-import tensorflow.keras
-from tensorflow.keras.layers import Input, Dense, Dropout, Activation, Flatten, BatchNormalization, GlobalAveragePooling2D
-from tensorflow.keras.layers import Conv2D, MaxPooling2D
-from tensorflow.keras.utils import to_categorical
-import matplotlib.pyplot as plt
-import numpy as np
-import datetime
+import platform
+system = platform.system()
+print(system)
+if system == "Darwin":
+    import os
+    os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
+    import tensorflow as tf
+    import keras
+    from keras.layers import Input, Dense, Dropout, Activation, Flatten, BatchNormalization, GlobalAveragePooling2D
+    from keras.layers import Conv2D, MaxPooling2D
+    from keras.utils import to_categorical
+    import matplotlib.pyplot as plt
+    import numpy as np
+else:
+    import tensorflow as tf
+    import tensorflow.keras
+    from tensorflow.keras.layers import Input, Dense, Dropout, Activation, Flatten, BatchNormalization, GlobalAveragePooling2D
+    from tensorflow.keras.layers import Conv2D, MaxPooling2D
+    from tensorflow.keras.utils import to_categorical
+    import matplotlib.pyplot as plt
+    import numpy as np
+    import datetime
 
 x_test, y_test = np.loadtxt("./TBP_sim/build/data_for_learning/Re_initial_value.csv",
         delimiter=" "), \
