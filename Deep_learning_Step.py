@@ -22,31 +22,25 @@ y_test_shape = y_test.shape
 print(f"x_test_shape = {x_test_shape} : y_test_shape = {y_test_shape}")
 
 inputs = Input(shape=(x_test_shape[1],))
-x = Dense(32, activation='tanh')(inputs)
-x = Dense(512, activation='tanh')(x)
-x = Dense(1024, activation='tanh')(x)
-x = Dense(2048, activation='tanh')(x)
-x = Dense(4096, activation='tanh')(x)
-x = Dense(8192, activation='tanh')(x)
-x = Dense(16384, activation='tanh')(x)
-x = Dense(32768, activation='tanh')(x)
-x = Dense(32768, activation='tanh')(x)
-x = Dense(32768, activation='tanh')(x)
-x = Dense(16384, activation='tanh')(x)
-x = Dense(8192, activation='tanh')(x)
-x = Dense(4096, activation='tanh')(x)
-x = Dense(4096, activation='tanh')(x)
-x = Dense(3200, activation='tanh')(x)
-x = Dense(3200, activation='tanh')(x)
+x = Dense(2000, activation='tanh')(inputs)
+x = Dense(2000, activation='tanh')(x)
+x = Dense(2000, activation='tanh')(x)
+x = Dense(2000, activation='tanh')(x)
+x = Dense(2000, activation='tanh')(x)
+x = Dense(2000, activation='tanh')(x)
+x = Dense(2000, activation='tanh')(x)
+x = Dense(2000, activation='tanh')(x)
+x = Dense(2000, activation='tanh')(x)
+x = Dense(2000, activation='tanh')(x)
 output = Dense(y_test_shape[1], activation='tanh')(x)
 
 model = keras.Model(inputs, output)
 model.compile(
-    loss='mean_absolute_error',
-    optimizer=keras.optimizers.Adam(lr=0.00055, epsilon=None, decay=0.08, amsgrad=False),
+    loss='mean_squared_error',
+    optimizer=keras.optimizers.Adam(lr=0.00065, epsilon=None, decay=0.4, amsgrad=False),
     #optimizer=keras.optimizers.Nadam(lr=0.0003, beta_1=0.9, beta_2=0.999),#(lr=0.0003, epsilon=None, decay=0., amsgrad=False),
     #optimizer=keras.optimizers.SGD(lr=0.003, momentum=0.3, nesterov=False),
-    metrics=["mean_squared_error"],
+    metrics=["mean_absolute_error"],
 )
 
 keras.utils.plot_model(model,

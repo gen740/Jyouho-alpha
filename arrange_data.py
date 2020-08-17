@@ -19,7 +19,7 @@ Result = np.sum(np.absolute(reshaped_data),1)
 counter = 0
 mask = []
 for i in Result:
-    if i > data_shape[1]:
+    if i > data_shape[1]/2.6:
         mask.append(False)
     else:
         mask.append(True)
@@ -73,7 +73,6 @@ star3 = star3.reshape(star3_shape[0], int(star3_shape[1] / 2), 2)
 reshaped_data = np.concatenate([star2,star3],2)
 reshaped_data = reshaped_data.reshape(star2_shape[0],star2_shape[1] * 2)
 
-print(reshaped_data)
 print("Re_reshaped_data = ", reshaped_data.shape)
 
 np.savetxt("./TBP_sim/build/data_for_learning/Re_initial_value.csv", \

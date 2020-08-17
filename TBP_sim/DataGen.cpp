@@ -2,6 +2,7 @@
 #include "TBP_class.hpp"
 
 #include <array>
+#include <cmath>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -28,11 +29,44 @@ void Random_Generate(int data_size)
             //  file << Rand_0to1() / 2 + 0.5 << " ";
             file << 1.0 << " ";
             for (int k = 0; k < DIM; k++) {
-                file << (Rand_0to1() - 0.5) << " ";
+                file << (Rand_0to1() - 0.0) << " ";
             }
             for (int k = 0; k < DIM; k++) {
-                file << (Rand_0to1() - 0.5) << " ";
+                file << 0.0 << " ";
             }
+        }
+        file.seekp(-1, std::ios::cur);
+        file << std::endl;
+    }
+    file.close();
+}
+
+void Random_Generate_2(int data_size)
+{
+    SizeOfData = data_size;
+    fs::remove_all(dir);
+    fs::create_directory(dir);
+    std::ofstream(dir + "/" + file_1);
+    std::fstream file;
+    file.open(dir + "/" + file_1, std::ios::out);
+    file << std::fixed;
+    file << std::setprecision(16);
+    for (int i = 0; i < data_size; i++) {
+        for (int j = 0; j < NUMBER_OF_STAR; j++) {
+            file << 1.0 << " ";
+            file << 0.0 << " ";
+            file << 0.0 << " ";
+            file << 0.0 << " ";
+            x_2 = -Rand_0to1() / 2;
+            y_2 = Rand_0to1() * std::sqrt(1 - std::pow(x_2, 2));
+            file << x_2 << " ";
+            file << y_2 << " ";
+            file << 0.0 << " ";
+            file << 0.0 << " ";
+            file << -1.0 - x_2 << " ";
+            file << -y_2 << " ";
+            file << 0.0 << " ";
+            file << 0.0 << " ";
         }
         file.seekp(-1, std::ios::cur);
         file << std::endl;
