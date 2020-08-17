@@ -22,7 +22,8 @@ namespace fs = std::filesystem;
 double Rand_0to1()
 {
     static int counter = 0;
-    static std::mt19937 engine(1);  // todo seed
+    static std::random_device seed_gen;
+    static std::mt19937 engine(seed_gen()); // todo seed
     std::uniform_real_distribution<> dist(0.0, 1.0);
     return dist(engine);
 }

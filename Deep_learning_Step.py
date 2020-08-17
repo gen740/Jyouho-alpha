@@ -5,7 +5,7 @@ if system == "Darwin":
     import os
     os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
     import tensorflow as tf
-    import keras
+    import keras as keras
     from keras.layers import Input, Dense, Dropout, Activation, Flatten, BatchNormalization, GlobalAveragePooling2D
     from keras.layers import Conv2D, MaxPooling2D
     from keras.utils import to_categorical
@@ -13,10 +13,10 @@ if system == "Darwin":
     import numpy as np
     import datetime
 else:
+    from tensorflow.keras.layers import Input, Dense, Dropout, Activation, Flatten, BatchNormalization, GlobalAveragePooling2D
+    from tensorflow.keras.layers import Conv2D, MaxPooling2D
+    from tensorflow.keras.utils import to_categorical
     import tensorflow.keras as keras
-    from keras.layers import Input, Dense, Dropout, Activation, Flatten, BatchNormalization, GlobalAveragePooling2D
-    from keras.layers import Conv2D, MaxPooling2D
-    from keras.utils import to_categorical
     import matplotlib.pyplot as plt
     import numpy as np
     import datetime
@@ -39,6 +39,9 @@ x = Dense(256, activation='relu')(inputs)
 x = Dense(256, activation='relu')(x)
 x = Dense(256, activation='relu')(x)
 x = Dense(256, activation='relu')(x)
+x = Dense(512, activation='relu')(x)
+x = Dense(512, activation='relu')(x)
+x = Dense(512, activation='relu')(x)
 x = Dense(256, activation='relu')(x)
 x = Dense(256, activation='relu')(x)
 x = Dense(256, activation='relu')(x)
@@ -50,7 +53,7 @@ output = Dense(y_test_shape[1], activation='linear')(x)
 model = keras.Model(inputs, output)
 model.compile(
     loss='mean_squared_error',
-    optimizer=keras.optimizers.Adam(lr=0.0008, epsilon=None, decay=0.002, amsgrad=False),
+    optimizer=keras.optimizers.Adam(lr=0.0008, epsilon=None, decay=0.001, amsgrad=False),
     #optimizer=keras.optimizers.Nadam(lr=0.0003, beta_1=0.9, beta_2=0.999),#(lr=0.0003, epsilon=None, decay=0., amsgrad=False),
     #optimizer=keras.optimizers.SGD(lr=0.003, momentum=0.3, nesterov=False),
     metrics=["mean_absolute_error"],
@@ -60,8 +63,8 @@ keras.utils.plot_model(model,
                        show_shapes=True,
                        show_layer_names=True)
 
-epochs = 200
-history = model.fit(x_test, y_test, batch_size=32, epochs=epochs, verbose=1, validation_split=0.2)
+epochs = 1000
+history = model.fit(x_test, y_test, batch_size=40, epochs=epochs, verbose=1, validation_split=0.2)
 
 test_scores = model.evaluate(x_test, y_test, verbose=2)
 print("テスト損失:", test_scores[0])
@@ -70,7 +73,7 @@ print("テスト精度（正答率）:", test_scores[1])
 dt_now = datetime.datetime.now()
 s_date = dt_now.strftime('_%m_%d_%H:%M:%S')
 model.save_weights(f'./weight/TBP{s_date}_weight')
-model.save(f'./weight/TBP{s_date}_model')
+model.save(f'./weight/TBP{s_date}_{test_scores[1]}_model')
 
 fig, ax = plt.subplots(dpi = 100, figsize=(18,9))
 fig2, ax2 = plt.subplots(dpi = 100, figsize=(18,9))
