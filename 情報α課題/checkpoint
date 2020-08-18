@@ -1,0 +1,2 @@
+model_checkpoint_path: "Zero_Mnist_weight"
+all_model_checkpoint_paths: "Zero_Mnist_weight"

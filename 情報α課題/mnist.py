@@ -20,6 +20,7 @@ else:
     import matplotlib.pyplot as plt
     import numpy as np
     import datetime
+    import tensorflow as tf
 
 def AI_learning(dim_of_layer, middle_lay_size, size_of_data = 60000):
     input_dim = 28*28
@@ -28,8 +29,8 @@ def AI_learning(dim_of_layer, middle_lay_size, size_of_data = 60000):
     DATA_SIZE = size_of_data
     val_split = 0.1
 
-    from keras.utils import to_categorical
-    (x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
+    from tensorflow.keras.utils import to_categorical
+    (x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
     x_train = x_train.reshape(60000, 784).astype("float32") / 255
     x_test = x_test.reshape(10000, 784).astype("float32") / 255
     y_train = to_categorical(y_train)
@@ -46,21 +47,20 @@ def AI_learning(dim_of_layer, middle_lay_size, size_of_data = 60000):
             x = Dense(middle_dim, activation="relu")(x)
     outputs = Dense(output_dim, activation='softmax')(x)
 
-    model = keras.Model(inputs=inputs, outputs=outputs, name="MNIST") #入力と出力だけ指定すればOK
+    model = tf.keras.Model(inputs=inputs, outputs=outputs, name="MNIST") #入力と出力だけ指定すればOK
     model.summary()
-    keras.utils.plot_model(model)
 
     model.compile(
         loss="categorical_crossentropy", #ここでクロスエントロピーを指定
-        optimizer=keras.optimizers.Adam(), #学習アルゴリズムにAdamを指定
+        optimizer=tf.keras.optimizers.Adam(), #学習アルゴリズムにAdamを指定
         metrics=["acc"], #性能評価にaccuracyを指定
     )
 
     model.save_weights(f'./Zero_Mnist_weight')
     model.save(f'./Zero_Mnist_model')
 
-    epochs = 20 #エポック数（全データを概ねチェックして更新する回数）を指定
-    history = model.fit(x_train, y_train, batch_size=64, epochs=epochs, validation_split=val_split)
+    epochs = 25 #エポック数（全データを概ねチェックして更新する回数）を指定
+    history = model.fit(x_train, y_train, batch_size=32, epochs=epochs, validation_split=val_split)
 
     test_scores = model.evaluate(x_test, y_test, verbose=2)
     print("テスト損失:", test_scores[0])
