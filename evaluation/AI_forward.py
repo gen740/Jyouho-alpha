@@ -20,7 +20,7 @@ else:
     import numpy as np
     import datetime
 
-new_model = keras.models.load_model('../weight/TBP_08_18_02:01:39_model')
+new_model = tf.keras.models.load_model('../weight/TBP_08_18_04:10:17_0.048020102083683014_model')
 new_model.summary()
 
 initial_val = np.loadtxt("../evaluation/TBP_sim/build/data_for_evaluation/initial_value_for_ai.csv")
@@ -51,9 +51,9 @@ for i in range(10):
 
     fig, ax = plt.subplots(dpi = 400, figsize=(10,8))
 
-    ax.plot(star1_data[:,0],star1_data[:,1],"g.", markersize = 0.3)
-    ax.plot(star2_data[:,0],star2_data[:,1],"r.", markersize = 0.3)
-    ax.plot(star3_data[:,0],star3_data[:,1],"b.", markersize = 0.3)
+    ax.plot(star1_data[:,0],star1_data[:,1],"g-", markersize = 0.3)
+    ax.plot(star2_data[:,0],star2_data[:,1],"r-", markersize = 0.3)
+    ax.plot(star3_data[:,0],star3_data[:,1],"b-", markersize = 0.3)
 
     fig.savefig(f"./Graph/AI-figure{i + 1}.png")
     plt.clf()
