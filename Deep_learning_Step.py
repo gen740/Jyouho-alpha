@@ -35,16 +35,18 @@ y_test_shape = y_test.shape
 print(f"x_test_shape = {x_test_shape} : y_test_shape = {y_test_shape}")
 
 inputs = Input(shape=(x_test_shape[1],))
-x = Dense(200, activation='elu')(inputs)
-x = Dense(200, activation='elu')(x)
-x = Dense(200, activation='elu')(x)
-x = Dense(200, activation='elu')(x)
-x = Dense(200, activation='elu')(x)
-x = Dense(200, activation='elu')(x)
-x = Dense(200, activation='elu')(x)
-x = Dense(200, activation='elu')(x)
-x = Dense(200, activation='elu')(x)
-x = Dense(200, activation='elu')(x)
+x = Dense(256, activation='elu')(inputs)
+x = Dense(256, activation='elu')(x)
+x = Dense(256, activation='elu')(x)
+x = Dense(256, activation='elu')(x)
+x = Dense(256, activation='elu')(x)
+x = Dense(256, activation='elu')(x)
+x = Dense(256, activation='elu')(x)
+x = Dense(256, activation='elu')(x)
+x = Dense(256, activation='elu')(x)
+x = Dense(256, activation='elu')(x)
+x = Dense(256, activation='elu')(x)
+x = Dense(256, activation='elu')(x)
 output = Dense(y_test_shape[1], activation='linear')(x)
 
 model = keras.Model(inputs, output)
@@ -61,7 +63,7 @@ keras.utils.plot_model(model,
                        show_layer_names=True)
 
 epochs = 1000
-history = model.fit(x_test, y_test, batch_size=40, epochs=epochs, verbose=1, validation_split=0.2)
+history = model.fit(x_test, y_test, batch_size=40, epochs=epochs, verbose=1, validation_split=0.02)
 
 test_scores = model.evaluate(x_test, y_test, verbose=2)
 print("テスト損失:", test_scores[0])
