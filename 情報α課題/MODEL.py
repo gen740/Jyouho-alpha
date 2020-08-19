@@ -72,9 +72,9 @@ def save_data():
     C = C / Data_size
     print("C = ", C)
 
-    data = [layer_size, param_size, test_acc, Data_size, A, B, C]
+    data = [layer_size, param_size, test_loss, test_acc, Data_size, A, B, C]
     del model_zero
-    del model_traind
+    del model_trained
     del layers
     del layers_zero
     del lay
