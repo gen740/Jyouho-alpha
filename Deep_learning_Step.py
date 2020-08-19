@@ -35,24 +35,24 @@ y_test_shape = y_test.shape
 print(f"x_test_shape = {x_test_shape} : y_test_shape = {y_test_shape}")
 
 inputs = Input(shape=(x_test_shape[1],))
-x = Dense(256, activation='elu')(inputs)
-x = Dense(256, activation='elu')(x)
-x = Dense(256, activation='elu')(x)
-x = Dense(256, activation='elu')(x)
-x = Dense(256, activation='elu')(x)
-x = Dense(256, activation='elu')(x)
-x = Dense(256, activation='elu')(x)
-x = Dense(256, activation='elu')(x)
-x = Dense(256, activation='elu')(x)
-x = Dense(256, activation='elu')(x)
-x = Dense(256, activation='elu')(x)
-x = Dense(256, activation='elu')(x)
+x = Dense(300, activation='elu')(inputs)
+x = Dense(300, activation='elu')(x)
+x = Dense(300, activation='elu')(x)
+x = Dense(300, activation='elu')(x)
+x = Dense(300, activation='elu')(x)
+x = Dense(300, activation='elu')(x)
+x = Dense(300, activation='elu')(x)
+x = Dense(300, activation='elu')(x)
+x = Dense(300, activation='elu')(x)
+x = Dense(300, activation='elu')(x)
+x = Dense(300, activation='elu')(x)
+x = Dense(300, activation='elu')(x)
 output = Dense(y_test_shape[1], activation='linear')(x)
 
 model = keras.Model(inputs, output)
 model.compile(
     loss='mean_squared_error',
-    optimizer=keras.optimizers.Adam(lr=0.0008, epsilon=None, decay=0.0010, amsgrad=False),
+    optimizer=keras.optimizers.Adam(lr=0.0008, epsilon=None, decay=0.0002, amsgrad=False),
     #optimizer=keras.optimizers.Nadam(lr=0.0003, beta_1=0.9, beta_2=0.999),#(lr=0.0003, epsilon=None, decay=0., amsgrad=False),
     #optimizer=keras.optimizers.SGD(lr=0.003, momentum=0.3, nesterov=False),
     metrics=["mean_absolute_error"],
@@ -62,7 +62,7 @@ keras.utils.plot_model(model,
                        show_shapes=True,
                        show_layer_names=True)
 
-epochs = 1000
+epochs = 300
 history = model.fit(x_test, y_test, batch_size=40, epochs=epochs, verbose=1, validation_split=0.02)
 
 test_scores = model.evaluate(x_test, y_test, verbose=2)
