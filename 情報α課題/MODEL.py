@@ -54,7 +54,7 @@ def save_data():
         lay = layers[i + 1]
         param_lay = np.array(lay.get_weights()[0])
         param_bias = np.array(lay.get_weights()[1])
-        B *= np.linalg.norm(param_lay) * np.linalg.norm(param_bias)
+        B *= np.linalg.norm(param_lay)**2 * np.linalg.norm(param_bias)**2
     B = B / Data_size
     print("B = ", B)
 
@@ -67,8 +67,8 @@ def save_data():
         param_bias = np.array(lay.get_weights()[1])
         param_lay_zero = np.array(lay_zero.get_weights()[0])
         param_bias_zero = np.array(lay_zero.get_weights()[1])
-        C += np.linalg.norm(param_lay - param_lay_zero) + \
-                np.linalg.norm(param_bias - param_lay_zero)
+        C += np.linalg.norm(param_lay - param_lay_zero)**2 + \
+                np.linalg.norm(param_bias - param_lay_zero)**2
     C = C / Data_size
     print("C = ", C)
 

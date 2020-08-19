@@ -52,14 +52,14 @@ def AI_learning(dim_of_layer, middle_lay_size, size_of_data = 60000):
 
     model.compile(
         loss="categorical_crossentropy", #ここでクロスエントロピーを指定
-        optimizer=keras.optimizers.Adam(lr=0.0005, decay=0.0005), #学習アルゴリズムにAdamを指定
+        optimizer=keras.optimizers.Adam(lr=0.0001,decay=0.001), #学習アルゴリズムにAdamを指定
         metrics=["acc"], #性能評価にaccuracyを指定
     )
 
     model.save_weights(f'./Zero_Mnist_weight')
     model.save(f'./Zero_Mnist_model')
 
-    epochs = 100 #エポック数（全データを概ねチェックして更新する回数）を指定
+    epochs = 40 #エポック数（全データを概ねチェックして更新する回数）を指定
     history = model.fit(x_train, y_train, batch_size=64, epochs=epochs, validation_split=val_split)
 
     test_scores = model.evaluate(x_test, y_test, verbose=2)
