@@ -73,4 +73,9 @@ def save_data():
     print("C = ", C)
 
     data = [layer_size, param_size, test_acc, Data_size, A, B, C]
+    del model_zero
+    del model_traind
+    del layers
+    del layers_zero
+    del lay
     return data

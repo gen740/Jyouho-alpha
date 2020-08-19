@@ -52,14 +52,14 @@ def AI_learning(dim_of_layer, middle_lay_size, size_of_data = 60000):
 
     model.compile(
         loss="categorical_crossentropy", #ここでクロスエントロピーを指定
-        optimizer=tf.keras.optimizers.Adam(), #学習アルゴリズムにAdamを指定
+        optimizer=tf.keras.optimizers.Adam(lr=0.0005, decay=0.0005), #学習アルゴリズムにAdamを指定
         metrics=["acc"], #性能評価にaccuracyを指定
     )
 
     model.save_weights(f'./Zero_Mnist_weight')
     model.save(f'./Zero_Mnist_model')
 
-    epochs = 25 #エポック数（全データを概ねチェックして更新する回数）を指定
+    epochs = 30 #エポック数（全データを概ねチェックして更新する回数）を指定
     history = model.fit(x_train, y_train, batch_size=32, epochs=epochs, validation_split=val_split)
 
     test_scores = model.evaluate(x_test, y_test, verbose=2)
@@ -74,3 +74,5 @@ def AI_learning(dim_of_layer, middle_lay_size, size_of_data = 60000):
     DATA_OV = np.array([DATA_SIZE*(1-val_split), 0.00])
     
     np.savetxt('Model_OV.csv', DATA_OV)
+
+    del model
